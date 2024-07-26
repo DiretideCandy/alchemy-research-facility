@@ -20,9 +20,9 @@ public class EquipmentService {
 
     @PostConstruct
     private void initTestValues(){
-        equipmentRepository.save(Equipment.builder().type("Wand").name("Волшебная палочка, дуб, волос из хвоста единорога").amount(25).build());
-        equipmentRepository.save(Equipment.builder().type("Cauldron").name("Котёл походный").amount(2).build());
-        equipmentRepository.save(Equipment.builder().type("Cauldron").name("Котёл чугунный, большой").amount(10).build());
+//        equipmentRepository.save(Equipment.builder().type("Wand").name("Волшебная палочка, дуб, волос из хвоста единорога").amount(25).build());
+//        equipmentRepository.save(Equipment.builder().type("Cauldron").name("Котёл походный").amount(2).build());
+//        equipmentRepository.save(Equipment.builder().type("Cauldron").name("Котёл чугунный, большой").amount(10).build());
     }
 
     public List<Equipment> findAll() {

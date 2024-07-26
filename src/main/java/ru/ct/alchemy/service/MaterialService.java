@@ -20,9 +20,9 @@ public class MaterialService {
 
     @PostConstruct
     private void initTestValues(){
-        materialRepository.save(Material.builder().type("Item").name("Язык лягушки").amount(10).build());
-        materialRepository.save(Material.builder().type("Item").name("Контейнер с неопознанным содержимым").amount(5).build());
-        materialRepository.save(Material.builder().type("Liquid").name("Колба с кровью дракона, 200 мл").amount(1).build());
+//        materialRepository.save(Material.builder().type("Item").name("Язык лягушки").amount(10).build());
+//        materialRepository.save(Material.builder().type("Item").name("Контейнер с неопознанным содержимым").amount(5).build());
+//        materialRepository.save(Material.builder().type("Liquid").name("Колба с кровью дракона, 200 мл").amount(1).build());
     }
 
 

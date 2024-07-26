@@ -1,0 +1,39 @@
+version: '3.5'
+
+services:
+
+  app:
+    image: arf-image
+    build:
+      context: .
+      dockerfile: dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/lab
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 123456
+    networks:
+      - local_network
+
+  db:
+    image: postgres:latest
+    environment:
+      - POSTGRES_DB=lab
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123456
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./src/main/resources/sql:/docker-entrypoint-initdb.d
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - local_network
+
+networks:
+  local_network:
+
+volumes:
+  db-data:
