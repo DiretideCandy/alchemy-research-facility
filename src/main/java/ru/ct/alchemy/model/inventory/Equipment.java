@@ -1,35 +1,30 @@
 package ru.ct.alchemy.model.inventory;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Table(name = "equipment", schema = "research")
 @Getter
 @Setter
 @Builder
+@NoArgsConstructor
 @AllArgsConstructor
 public class Equipment implements InventoryItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
-    @Basic
+    @Column(name = "type")
     private String type;
 
-    @Basic
+    @Column(name = "name")
     private String name;
 
-    @Basic
-    private int amount;
+    @Column(name = "amount")
+    private Integer amount;
 
-
-    public Equipment() {
-
-    }
 
 }

@@ -6,7 +6,7 @@ public interface InventoryItem {
     String getName();
     void setName(String name);
     int getAmount();
-    void setAmount(int amount);
+    void setAmount(Integer amount);
     String getType();
     void setType(String type);
 }

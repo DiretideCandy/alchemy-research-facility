@@ -6,8 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import ru.ct.alchemy.model.inventory.Material;
-import ru.ct.alchemy.service.MaterialService;
+import ru.ct.alchemy.model.dto.MaterialDTO;
+import ru.ct.alchemy.service.MaterialServiceImpl;
 
 import java.util.List;
 
@@ -15,21 +15,21 @@ import java.util.List;
 @RequestMapping("/api/materials")
 public class MaterialController {
 
-    private final MaterialService materialService;
+    private final MaterialServiceImpl materialService;
 
-    public MaterialController(MaterialService materialService) {
+    public MaterialController(MaterialServiceImpl materialService) {
         this.materialService = materialService;
     }
 
     @Operation(summary = "Просмотреть все материалы", description = "Возвращает все доступные на складе материалы")
     @GetMapping("/")
-    public ResponseEntity<List<Material>> getAllEquipment(){
+    public ResponseEntity<List<MaterialDTO>> getAllEquipment(){
         return new ResponseEntity<>(materialService.findAll(), HttpStatus.OK);
     }
 
     @Operation(summary = "Просмотреть материал по id", description = "Возвращает материал по его id")
     @GetMapping("/{id}")
-    public ResponseEntity<Material> getEquipment(@PathVariable("id") long id){
+    public ResponseEntity<MaterialDTO> getEquipment(@PathVariable("id") long id){
         return materialService.findById(id)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
@@ -37,26 +37,23 @@ public class MaterialController {
 
     @Operation(summary = "Создать материал", description = "Добавляет указанный материал на склад")
     @PostMapping("/create")
-    public ResponseEntity<Material> create(@RequestBody @Valid Material material,
+    public ResponseEntity<MaterialDTO> create(@RequestBody @Valid MaterialDTO material,
                                             BindingResult bindingResult){
         if (bindingResult.hasErrors())
             return ResponseEntity.badRequest().body(material);
 
-        materialService.save(material);
-        return new ResponseEntity<>(material, HttpStatus.CREATED);
+        return new ResponseEntity<>(materialService.save(material), HttpStatus.CREATED);
     }
 
-    @Operation(summary = "Изменить материал", description = "Отредактировать информацию о материале по его id")
+    @Operation(summary = "Изменить материал", description = "Отредактировать информацию о материале")
     @PatchMapping("/{id}")
-    public ResponseEntity<Material> update(@ModelAttribute("person") @Valid Material material,
-                                            BindingResult bindingResult,
-                                            @PathVariable("id") long id) {
+    public ResponseEntity<MaterialDTO> update(@ModelAttribute("person") @Valid MaterialDTO material,
+                                            BindingResult bindingResult) {
 
         if (bindingResult.hasErrors())
             return ResponseEntity.badRequest().body(material);
 
-        materialService.update(id, material);
-        return ResponseEntity.ok(material);
+        return ResponseEntity.ok(materialService.update(material));
     }
 
     @Operation(summary = "Удалить материал", description = "Удалить материал по его id")
