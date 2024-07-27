@@ -3,6 +3,7 @@ package ru.ct.alchemy.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import ru.ct.alchemy.model.experiment.Experiment;
 
 @Entity
 @Table(name = "reports", schema = "research")
