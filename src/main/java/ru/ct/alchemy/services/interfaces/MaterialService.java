@@ -1,4 +1,4 @@
-package ru.ct.alchemy.service;
+package ru.ct.alchemy.services.interfaces;
 
 import org.springframework.transaction.annotation.Transactional;
 import ru.ct.alchemy.model.dto.MaterialDTO;

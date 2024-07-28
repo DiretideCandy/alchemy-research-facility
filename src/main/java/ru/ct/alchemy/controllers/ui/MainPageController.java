@@ -1,4 +1,4 @@
-package ru.ct.alchemy.controller.ui;
+package ru.ct.alchemy.controllers.ui;
 
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.stereotype.Controller;

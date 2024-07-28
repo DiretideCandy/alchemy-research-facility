@@ -1,8 +1,9 @@
 package ru.ct.alchemy.model.experiment;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,16 +17,17 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ExperimentWorkflowPK implements Serializable {
-    @ManyToOne
-    @JoinColumn(name = "from_id", nullable = false)
+
+    @Column(name = "from_id", nullable = false)
+    @Enumerated(EnumType.STRING)
     private ExperimentStatus from;
 
-    @ManyToOne
-    @JoinColumn(name = "to_id", nullable = false)
+    @Column(name = "to_id", nullable = false)
+    @Enumerated(EnumType.STRING)
     private ExperimentStatus to;
 
     @Override
-    public boolean equals(Object o){
+    public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
@@ -35,7 +37,7 @@ public class ExperimentWorkflowPK implements Serializable {
     }
 
     @Override
-    public int hashCode(){
+    public int hashCode() {
         return 1_000 * from.hashCode() + to.hashCode();
     }
 }

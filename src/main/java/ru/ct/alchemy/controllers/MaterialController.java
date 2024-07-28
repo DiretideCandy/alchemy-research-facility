@@ -1,25 +1,23 @@
-package ru.ct.alchemy.controller;
+package ru.ct.alchemy.controllers;
 
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.ct.alchemy.model.dto.MaterialDTO;
-import ru.ct.alchemy.service.MaterialServiceImpl;
+import ru.ct.alchemy.services.MaterialServiceImpl;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/materials")
+@AllArgsConstructor
 public class MaterialController {
 
     private final MaterialServiceImpl materialService;
-
-    public MaterialController(MaterialServiceImpl materialService) {
-        this.materialService = materialService;
-    }
 
     @Operation(summary = "Просмотреть все материалы", description = "Возвращает все доступные на складе материалы")
     @GetMapping("/")

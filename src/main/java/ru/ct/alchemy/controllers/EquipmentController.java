@@ -1,25 +1,23 @@
-package ru.ct.alchemy.controller;
+package ru.ct.alchemy.controllers;
 
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.ct.alchemy.model.dto.EquipmentDTO;
-import ru.ct.alchemy.service.EquipmentServiceImpl;
+import ru.ct.alchemy.services.EquipmentServiceImpl;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/equipment")
+@AllArgsConstructor
 public class EquipmentController {
 
     private final EquipmentServiceImpl equipmentService;
-
-    public EquipmentController(EquipmentServiceImpl equipmentService) {
-        this.equipmentService = equipmentService;
-    }
 
     @Operation(summary = "Просмотреть всё оборудование", description = "Возвращает всё доступное на складе оборудование")
     @GetMapping("/")

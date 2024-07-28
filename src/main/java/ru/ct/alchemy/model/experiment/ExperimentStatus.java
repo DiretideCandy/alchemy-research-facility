@@ -1,25 +1,19 @@
 package ru.ct.alchemy.model.experiment;
 
-import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
-@Entity
-@Table(name = "experiment_status", schema = "research")
 @Getter
-@Setter
-@ToString
-@Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class ExperimentStatus {
+public enum ExperimentStatus {
+    CREATED("Создан"),
+    FILLED_IN("Данные заполнены"),
+    APPROVED("Согласован"),
+    RUNNING("Выполняется"),
+    CANCELLED("Отменён"),
+    FINISHED("Завершён"),
+    REPORTED("Отчёт сформирован"),
+    ;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(name = "description")
-    private String description;
-
-    @Column(name = "name", unique = true)
-    private String name;
+    private final String description;
 }

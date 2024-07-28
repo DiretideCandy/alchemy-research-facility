@@ -1,9 +1,11 @@
-package ru.ct.alchemy.service;
+package ru.ct.alchemy.services;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.ct.alchemy.model.dto.MaterialDTO;
-import ru.ct.alchemy.repository.MaterialRepository;
+import ru.ct.alchemy.model.mappers.MaterialMapper;
+import ru.ct.alchemy.repositories.MaterialRepository;
+import ru.ct.alchemy.services.interfaces.MaterialService;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,24 +22,24 @@ public class MaterialServiceImpl implements MaterialService {
     public List<MaterialDTO> findAll() {
         return materialRepository.findAll()
                 .stream()
-                .map(MaterialDTO::fromMaterial)
+                .map(MaterialMapper.INSTANCE::toDTO)
                 .toList();
     }
 
     public Optional<MaterialDTO> findById(long id) {
         return materialRepository.findById(id)
-                .map(MaterialDTO::fromMaterial);
+                .map(MaterialMapper.INSTANCE::toDTO);
     }
 
     @Transactional
     public MaterialDTO save(MaterialDTO materialDto) {
-        materialRepository.save(materialDto.toMaterial());
+        materialRepository.save(MaterialMapper.INSTANCE.fromDTO(materialDto));
         return materialDto;
     }
 
     @Transactional
     public MaterialDTO update(MaterialDTO updatedMaterialDto) {
-        materialRepository.save(updatedMaterialDto.toMaterial());
+        materialRepository.save(MaterialMapper.INSTANCE.fromDTO(updatedMaterialDto));
         return updatedMaterialDto;
     }
 

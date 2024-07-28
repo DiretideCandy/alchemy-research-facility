@@ -1,4 +1,4 @@
-package ru.ct.alchemy.presentation.scheduler;
+package ru.ct.alchemy.presentation.schedulers;
 
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
