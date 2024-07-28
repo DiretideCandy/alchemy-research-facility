@@ -8,4 +8,4 @@ import java.lang.annotation.RetentionPolicy;
 @Retention(RetentionPolicy.CLASS)
 @Mapping(target = "statusName", source = "status", qualifiedByName = "getStatusName")
 @Mapping(target = "statusDescription", source = "status", qualifiedByName = "getStatusDescription")
-public @interface ExperimentMappings { }
+public @interface ExperimentMappingsForStatus { }

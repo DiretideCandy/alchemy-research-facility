@@ -5,6 +5,8 @@ import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
 import ru.ct.alchemy.model.dto.ExperimentCreateRqDTO;
 import ru.ct.alchemy.model.dto.ExperimentCreateRsDTO;
+import ru.ct.alchemy.model.dto.ExperimentGetAllRsDTO;
+import ru.ct.alchemy.model.dto.ExperimentGetRsDTO;
 import ru.ct.alchemy.model.experiment.Experiment;
 import ru.ct.alchemy.model.experiment.ExperimentStatus;
 
@@ -15,8 +17,14 @@ public interface ExperimentMapper {
 
     Experiment fromCreateRqDTO(ExperimentCreateRqDTO experimentCreateRqDTO);
 
-    @ExperimentMappings
+    @ExperimentMappingsForStatus
     ExperimentCreateRsDTO toCreateRsDTO(Experiment experiment);
+
+    @ExperimentMappingsForStatus
+    ExperimentGetAllRsDTO toGetAllRsDTO(Experiment experiment);
+
+    @ExperimentMappingsForStatus
+    ExperimentGetRsDTO toGetRsDTO(Experiment experiment);
 
     @Named("getStatusName")
     default String getStatusName(ExperimentStatus status) {

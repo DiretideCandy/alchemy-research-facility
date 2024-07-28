@@ -18,7 +18,7 @@ import lombok.*;
 public class ExperimentStatusWorkflow {
 
     @EmbeddedId
-    private ExperimentWorkflowPK id;
+    private ExperimentStatusWorkflowPK id;
 
     @Column(name = "comment")
     private String comment;

@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import ru.ct.alchemy.model.experiment.ExperimentStatusWorkflow;
-import ru.ct.alchemy.model.experiment.ExperimentWorkflowPK;
+import ru.ct.alchemy.model.experiment.ExperimentStatusWorkflowPK;
 import ru.ct.alchemy.repositories.ExperimentStatusWorkflowRepository;
 
 
@@ -22,7 +22,7 @@ public class InitializerStatusWorkflow {
         // заполняем процессы
         presentationData.getWorkflow().stream()
                 .map(triple -> ExperimentStatusWorkflow.builder()
-                        .id(new ExperimentWorkflowPK(
+                        .id(new ExperimentStatusWorkflowPK(
                                 triple.first(),
                                 triple.second()))
                         .comment(triple.third())

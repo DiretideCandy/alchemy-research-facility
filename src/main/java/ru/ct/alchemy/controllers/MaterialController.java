@@ -21,13 +21,13 @@ public class MaterialController {
 
     @Operation(summary = "Просмотреть все материалы", description = "Возвращает все доступные на складе материалы")
     @GetMapping("/")
-    public ResponseEntity<List<MaterialDTO>> getAllEquipment(){
+    public ResponseEntity<List<MaterialDTO>> getAllMaterials(){
         return new ResponseEntity<>(materialService.findAll(), HttpStatus.OK);
     }
 
     @Operation(summary = "Просмотреть материал по id", description = "Возвращает материал по его id")
     @GetMapping("/{id}")
-    public ResponseEntity<MaterialDTO> getEquipment(@PathVariable("id") long id){
+    public ResponseEntity<MaterialDTO> getMaterials(@PathVariable("id") long id){
         return materialService.findById(id)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());

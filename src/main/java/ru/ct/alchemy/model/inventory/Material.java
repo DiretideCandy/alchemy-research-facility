@@ -2,6 +2,9 @@ package ru.ct.alchemy.model.inventory;
 
 import jakarta.persistence.*;
 import lombok.*;
+import ru.ct.alchemy.model.experiment.Experiment;
+
+import java.util.List;
 
 @Entity
 @Table(name = "materials", schema = "research")
@@ -10,7 +13,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Material implements InventoryItem {
+public class Material {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,7 +21,8 @@ public class Material implements InventoryItem {
     private Long id;
 
     @Column(name = "type")
-    private String type;
+    @Enumerated(EnumType.STRING)
+    private MaterialType type;
 
     @Column(name = "name")
     private String name;
@@ -26,4 +30,6 @@ public class Material implements InventoryItem {
     @Column(name = "amount")
     private Integer amount;
 
+    @ManyToMany(mappedBy = "materials")
+    private List<Experiment> experiments;
 }

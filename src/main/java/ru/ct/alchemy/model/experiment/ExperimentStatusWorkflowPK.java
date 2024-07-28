@@ -16,7 +16,7 @@ import java.io.Serializable;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ExperimentWorkflowPK implements Serializable {
+public class ExperimentStatusWorkflowPK implements Serializable {
 
     @Column(name = "from_id", nullable = false)
     @Enumerated(EnumType.STRING)
@@ -31,7 +31,7 @@ public class ExperimentWorkflowPK implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ExperimentWorkflowPK pk = (ExperimentWorkflowPK) o;
+        ExperimentStatusWorkflowPK pk = (ExperimentStatusWorkflowPK) o;
         if (this.getFrom().equals(pk.getFrom())) return false;
         return this.getTo().equals(pk.getTo());
     }

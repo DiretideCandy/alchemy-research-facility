@@ -12,13 +12,24 @@ import org.springframework.stereotype.Component;
 public class Orchestrator {
 
     private final InitializerStatusWorkflow initializerStatusWorkflow;
-    private final InitializerStatus initializerStatus;
+    private final InitializerEnums initializerEnums;
+    private final InitializerMaterials initializerMaterials;
+    private final InitializerEquipment initializerEquipment;
+    private final InitializerExperiments initializerExperiments;
 
     @EventListener(ApplicationReadyEvent.class)
     public void createAll(){
-        initializerStatus.createAllStatuses();
-        initializerStatusWorkflow.createAllStatusWorkflow();
+        log.info("Началась инициализация данных в БД ... ");
 
-        log.info("Данные загружены в БД");
+        initializerEnums.createAllStatuses();
+        initializerEnums.createAllInventoryTypes();
+
+        initializerStatusWorkflow.createAllStatusWorkflow();
+        initializerMaterials.createMaterials();
+        initializerEquipment.createEquipment();
+
+        initializerExperiments.createExperiments();
+
+        log.info("Инициализация данных в БД завершена!");
     }
 }
