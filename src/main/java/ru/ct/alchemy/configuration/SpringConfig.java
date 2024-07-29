@@ -1,6 +1,6 @@
 package ru.ct.alchemy.configuration;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,12 +17,10 @@ import org.thymeleaf.spring6.view.ThymeleafViewResolver;
 @EnableTransactionManagement
 @EnableWebMvc
 @EnableScheduling
+@AllArgsConstructor
 public class SpringConfig implements WebMvcConfigurer {
+
     private final ApplicationContext applicationContext;
-    @Autowired
-    public SpringConfig(ApplicationContext applicationContext) {
-        this.applicationContext = applicationContext;
-    }
 
     @Bean
     public SpringResourceTemplateResolver templateResolver() {
