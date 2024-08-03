@@ -15,11 +15,12 @@ public class Orchestrator {
     private final InitializerEnums initializerEnums;
     private final InitializerMaterials initializerMaterials;
     private final InitializerEquipment initializerEquipment;
+    private final InitializerActions initializerActions;
     private final InitializerExperiments initializerExperiments;
 
     @EventListener(ApplicationReadyEvent.class)
     public void createAll(){
-        log.info("Началась инициализация данных в БД ... ");
+        log.info("Началась инициализация тестовых данных в БД ... ");
 
         initializerEnums.createAllStatuses();
         initializerEnums.createAllInventoryTypes();
@@ -27,9 +28,11 @@ public class Orchestrator {
         initializerStatusWorkflow.createAllStatusWorkflow();
         initializerMaterials.createMaterials();
         initializerEquipment.createEquipment();
+        initializerActions.createActions();
+
 
         initializerExperiments.createExperiments();
 
-        log.info("Инициализация данных в БД завершена!");
+        log.info("Инициализация тестовых данных в БД завершена!");
     }
 }

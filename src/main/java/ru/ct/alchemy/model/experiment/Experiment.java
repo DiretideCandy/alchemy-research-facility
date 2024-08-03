@@ -3,6 +3,7 @@ package ru.ct.alchemy.model.experiment;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
+import ru.ct.alchemy.model.Action;
 import ru.ct.alchemy.model.Report;
 import ru.ct.alchemy.model.inventory.Equipment;
 import ru.ct.alchemy.model.inventory.Material;
@@ -21,8 +22,8 @@ import java.util.List;
 public class Experiment {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @OneToOne
     @JoinColumn(name = "report")
@@ -56,6 +57,10 @@ public class Experiment {
             joinColumns = @JoinColumn(name = "experiment_id"),
             inverseJoinColumns = @JoinColumn(name = "material_id"))
     private List<Material> materials;
+
+    @ManyToOne
+    @JoinColumn(name = "action_id")
+    private Action action;
 
     @PrePersist
     @PreUpdate

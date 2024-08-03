@@ -8,7 +8,7 @@ import java.util.Date;
 @Getter
 @Setter
 public class ExperimentGetAllRsDTO {
-    private String id;
+    private Long id;
     private Date createdAt;
     private String createdBy;
     private String statusName;
