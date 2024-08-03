@@ -33,5 +33,18 @@ public class InitializerExperiments {
                         ))
                         .build()
         );
+
+        experimentRepository.save(
+                Experiment.builder()
+                        .createdAt(new Date())
+                        .createdBy("Some Other Scientist")
+                        .status(ExperimentStatus.FILLED_IN)
+                        .equipment(equipmentRepository.findById(2L).orElse(null))
+                        .materials(List.of(
+                                materialRepository.findById(2L).orElse(null),
+                                materialRepository.findById(1L).orElse(null)
+                        ))
+                        .build()
+        );
     }
 }

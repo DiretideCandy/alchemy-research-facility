@@ -15,7 +15,7 @@ import ru.ct.alchemy.services.interfaces.ExperimentService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/experiments")
+@RequestMapping("/api/experiments")
 @AllArgsConstructor
 public class ExperimentController {
 

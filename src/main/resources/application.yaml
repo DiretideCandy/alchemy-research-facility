@@ -10,18 +10,10 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create
-    show-sql: true
+      ddl-auto: none
+    show-sql: false
     database-platform: org.hibernate.dialect.PostgreSQLDialect
-    defer-datasource-initialization: true
 
   data:
     jdbc:
       dialect: postgresql
-
-  sql:
-    init:
-#      data-locations: classpath:sql/presentation/create_test_data.sql
-      mode: always
-
-

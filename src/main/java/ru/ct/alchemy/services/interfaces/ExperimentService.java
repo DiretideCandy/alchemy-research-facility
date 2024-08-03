@@ -14,6 +14,5 @@ public interface ExperimentService {
 
     ExperimentCreateRsDTO create(ExperimentCreateRqDTO experimentCreateRqDTO);
 
-
     Optional<ExperimentGetRsDTO> findById(long id);
 }
