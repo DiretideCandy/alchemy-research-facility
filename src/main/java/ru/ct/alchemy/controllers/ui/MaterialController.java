@@ -13,7 +13,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/research/materials")
 @AllArgsConstructor
-public class MaterialsController {
+public class MaterialController {
 
     private final MaterialService materialService;
 

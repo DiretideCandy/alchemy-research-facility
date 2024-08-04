@@ -5,8 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class MaterialInExperimentDTO {
+public class ActionDTO {
     private Long id;
     private String name;
-    private String type;
 }

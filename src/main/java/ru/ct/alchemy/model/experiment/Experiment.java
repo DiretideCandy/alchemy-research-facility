@@ -50,7 +50,7 @@ public class Experiment {
     @JoinColumn(name = "equipment")
     private Equipment equipment;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(
             name = "experiment_material_map",
             schema = "research",

@@ -17,6 +17,7 @@ public class ExperimentGetRsDTO {
     private String statusDescription;
     private String equipmentName;
     private String equipmentType;
+    private String equipmentTypeName;
     private List<MaterialInExperimentDTO> materials;
     private String actionName;
     private String reportText;

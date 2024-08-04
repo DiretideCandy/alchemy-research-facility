@@ -5,7 +5,7 @@
     <link rel="stylesheet" type="text/css" href="/css/styles.css">
 </head>
 <body>
-<#include "../common/header.ftl">
+<#include "../parts/header.ftl">
 <main>
     <h1>404 - Not Found</h1>
     <p>The requested resource could not be found.</p>

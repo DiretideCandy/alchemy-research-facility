@@ -15,4 +15,8 @@ public interface ExperimentService {
     ExperimentCreateRsDTO create(ExperimentCreateRqDTO experimentCreateRqDTO);
 
     Optional<ExperimentGetRsDTO> findById(long id);
+
+    void removeMaterial(long id, int index);
+
+    void addMaterial(long id, long materialId);
 }

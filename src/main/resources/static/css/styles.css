@@ -11,7 +11,8 @@ body {
 table {
     /*width: 100%;*/
     border-collapse: collapse;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
+    margin-top: 5px;
 }
 
 table, th, td {
@@ -50,4 +51,15 @@ header nav a:hover {
 /* Inner table styles */
 table table {
     margin: 10px 0;
+}
+
+
+.materials-table {
+    border: 1px solid #000000;
+}
+
+.materials-table td {
+    border: 0 solid #000000;
+    padding: 2px;
+    text-align: left;
 }

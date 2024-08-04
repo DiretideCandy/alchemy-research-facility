@@ -52,6 +52,12 @@ public abstract class ExperimentMapper {
     protected String getEquipmentType(Equipment equipment) {
         return equipment == null
                 ? experimentInfoPageProperties.getUnknown()
+                : equipment.getType().name();
+    }
+    @Named("getEquipmentTypeName")
+    protected String getEquipmentTypeName(Equipment equipment) {
+        return equipment == null
+                ? experimentInfoPageProperties.getUnknown()
                 : equipment.getType().getName();
     }
 

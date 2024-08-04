@@ -5,7 +5,7 @@
     <link rel="stylesheet" type="text/css" href="/css/styles.css">
 </head>
 <body>
-<#include "common/header.ftl">
+<#include "parts/header.ftl">
 <main>
     <h1>Список оборудования</h1>
     <table>
