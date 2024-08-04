@@ -15,6 +15,9 @@ public class Report {
     @JoinColumn(name = "experiment_id")
     private Experiment id;
 
-    @Column(columnDefinition="text")
+    @Column(name="text")
     private String text;
+
+    @Column(name = "result")
+    private String result;
 }

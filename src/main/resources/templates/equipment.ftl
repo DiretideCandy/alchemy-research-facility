@@ -1,17 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
     <title>Оборудование</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
 </head>
 <body>
-<header>
-    <nav>
-        <a href="/">Home</a> |
-        <a href="/experiments">Эксперименты</a> |
-        <a href="/materials">Материалы</a> |
-        <a href="/equipment">Оборудование</a> |
-    </nav>
-</header>
+<#include "common/header.ftl">
 <main>
     <h1>Список экспериментов</h1>
     <table>

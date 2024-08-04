@@ -23,13 +23,13 @@ public class ExperimentController {
 
     @Operation(summary = "Просмотреть все эксперименты", description = "Возвращает все эксперименты")
     @GetMapping("/")
-    public ResponseEntity<List<ExperimentGetAllRsDTO>> createExperiment(){
+    public ResponseEntity<List<ExperimentGetAllRsDTO>> getExperiments(){
         return new ResponseEntity<>(experimentService.findAll(), HttpStatus.OK);
     }
 
     @Operation(summary = "Просмотреть эксперимент по id", description = "Возвращает подробную информацию об экспериментеExperimentCreateRsDTO по его id")
     @GetMapping("/{id}")
-    public ResponseEntity<ExperimentGetRsDTO> getEquipment(@PathVariable("id") long id){
+    public ResponseEntity<ExperimentGetRsDTO> getExperiment(@PathVariable("id") long id){
         return experimentService.findById(id)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());

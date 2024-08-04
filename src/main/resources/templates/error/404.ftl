@@ -1,17 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
     <title>404 - Not Found</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
 </head>
 <body>
-<header>
-    <nav>
-        <a href="/">Home</a> |
-        <a href="/experiments">Эксперименты</a> |
-        <a href="/materials">Материалы</a> |
-        <a href="/equipment">Оборудование</a> |
-    </nav>
-</header>
+<#include "../common/header.ftl">
 <main>
     <h1>404 - Not Found</h1>
     <p>The requested resource could not be found.</p>

@@ -1,19 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
     <title>Эксперимент ${experiment.id}</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
 </head>
 <body>
-<header>
-    <nav>
-        <a href="/">Home</a> |
-        <a href="/experiments">Эксперименты</a> |
-        <a href="/materials">Материалы</a> |
-        <a href="/equipment">Оборудование</a> |
-    </nav>
-</header>
+<#include "common/header.ftl">
 <main>
-    <h1>Detail Page</h1>
     <table>
         <tr>
             <th>Field</th><th>Value</th>
@@ -35,6 +28,42 @@
         </tr>
         <tr>
             <td>statusName</td><td>${experiment.statusName}</td>
+        </tr>
+        <tr>
+            <td>equipmentName</td><td>${experiment.equipmentName}</td>
+        </tr>
+        <tr>
+            <td>equipmentType</td><td>${experiment.equipmentType}</td>
+        </tr>
+        <tr>
+            <td>materials</td>
+            <td>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <#list experiment.materials as material>
+                        <tr>
+                            <td>${material.name}</td>
+                            <td>${material.type}</td>
+                        </tr>
+                    </#list>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>actionName</td><td>${experiment.actionName}</td>
+        </tr>
+        <tr>
+            <td>reportText</td><td>${experiment.reportText}</td>
+        </tr>
+        <tr>
+            <td>reportResult</td><td>${experiment.reportResult}</td>
         </tr>
     </table>
     </main>
