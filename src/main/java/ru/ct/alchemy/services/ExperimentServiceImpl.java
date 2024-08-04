@@ -19,25 +19,27 @@ public class ExperimentServiceImpl implements ExperimentService {
 
     private final ExperimentRepository experimentRepository;
 
+    private final ExperimentMapper experimentMapper;
+
     @Override
     public List<ExperimentGetAllRsDTO> findAll() {
         return experimentRepository.findAll()
                 .stream()
-                .map(ExperimentMapper.INSTANCE::toGetAllRsDTO)
+                .map(experimentMapper::toGetAllRsDTO)
                 .toList();
     }
     @Override
     public ExperimentCreateRsDTO create(ExperimentCreateRqDTO experimentCreateRqDTO) {
-        return ExperimentMapper.INSTANCE.toCreateRsDTO(
+        return experimentMapper.toCreateRsDTO(
                 experimentRepository.save(
-                        ExperimentMapper.INSTANCE.fromCreateRqDTO(
+                        experimentMapper.fromCreateRqDTO(
                                 experimentCreateRqDTO)));
     }
 
     @Override
     public Optional<ExperimentGetRsDTO> findById(long id) {
         return experimentRepository.findById(id)
-                .map(ExperimentMapper.INSTANCE::toGetRsDTO);
+                .map(experimentMapper::toGetRsDTO);
     }
   //return materialRepository.findById(id)
     //                .map(MaterialMapper.INSTANCE::toDTO);

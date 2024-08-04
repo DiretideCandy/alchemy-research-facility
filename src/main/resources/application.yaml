@@ -23,3 +23,7 @@ spring:
     suffix: .ftl
     charset: UTF-8
     content-type: text/html
+
+experiment:
+  defaults:
+    unknown: "---unknown---"

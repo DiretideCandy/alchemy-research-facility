@@ -8,10 +8,15 @@
 <#include "common/header.ftl">
 <main>
     <h1>Список экспериментов</h1>
+    <p></p>
+    <form action="/research/experiments/create" method="get">
+        <button type="submit">Новый эксперимент</button>
+    </form>
+    <p></p>
     <table>
         <#list experiments as experiment>
             <tr>
-                <td><a href="/experiments/${experiment.id}">#${experiment.id}</a></td>
+                <td><a href="/research/experiments/${experiment.id}">#${experiment.id}</a></td>
                 <td>${experiment.createdAt}</td>
                 <td>${experiment.createdBy}</td>
                 <td>${experiment.statusName}</td>

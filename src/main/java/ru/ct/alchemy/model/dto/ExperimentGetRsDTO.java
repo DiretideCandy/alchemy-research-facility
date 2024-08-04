@@ -11,7 +11,7 @@ import java.util.List;
 public class ExperimentGetRsDTO {
     private Long id;
     private Date createdAt;
-    private String lastUpdatedAt;
+    private Date lastUpdatedAt;
     private String createdBy;
     private String statusName;
     private String statusDescription;

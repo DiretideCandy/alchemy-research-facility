@@ -7,7 +7,7 @@
 <body>
 <#include "common/header.ftl">
 <main>
-    <h1>Список экспериментов</h1>
+    <h1>Список оборудования</h1>
     <table>
         <#list equipment as eq>
             <tr>

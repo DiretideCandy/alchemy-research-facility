@@ -1,8 +1,8 @@
 <header>
     <nav>
-        <a href="/">Home</a> |
-        <a href="/experiments">Эксперименты</a> |
-        <a href="/materials">Материалы</a> |
-        <a href="/equipment">Оборудование</a> |
+        <a href="/research">Home</a> |
+        <a href="/research/experiments">Эксперименты</a> |
+        <a href="/research/materials">Материалы</a> |
+        <a href="/research/equipment">Оборудование</a> |
     </nav>
 </header>

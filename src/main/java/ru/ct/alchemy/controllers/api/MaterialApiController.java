@@ -1,4 +1,4 @@
-package ru.ct.alchemy.controllers;
+package ru.ct.alchemy.controllers.api;
 
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
@@ -15,7 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/materials")
 @AllArgsConstructor
-public class MaterialController {
+public class MaterialApiController {
 
     private final MaterialServiceImpl materialService;
 

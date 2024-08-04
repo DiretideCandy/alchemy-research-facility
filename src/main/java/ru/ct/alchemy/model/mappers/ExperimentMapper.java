@@ -2,7 +2,8 @@ package ru.ct.alchemy.model.mappers;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Named;
-import org.mapstruct.factory.Mappers;
+import org.springframework.beans.factory.annotation.Autowired;
+import ru.ct.alchemy.configuration.ExperimentInfoPageProperties;
 import ru.ct.alchemy.model.Action;
 import ru.ct.alchemy.model.Report;
 import ru.ct.alchemy.model.dto.ExperimentCreateRqDTO;
@@ -13,56 +14,66 @@ import ru.ct.alchemy.model.experiment.Experiment;
 import ru.ct.alchemy.model.experiment.ExperimentStatus;
 import ru.ct.alchemy.model.inventory.Equipment;
 
-@Mapper
-public interface ExperimentMapper {
+@Mapper(componentModel = "spring")
+public abstract class ExperimentMapper {
 
-    ExperimentMapper INSTANCE = Mappers.getMapper(ExperimentMapper.class);
+    @Autowired
+    protected ExperimentInfoPageProperties experimentInfoPageProperties;
 
-    Experiment fromCreateRqDTO(ExperimentCreateRqDTO experimentCreateRqDTO);
+    public abstract Experiment fromCreateRqDTO(ExperimentCreateRqDTO experimentCreateRqDTO);
+
+    public abstract ExperimentCreateRsDTO toCreateRsDTO(Experiment experiment);
 
     @ExperimentMappingsForStatus
-    ExperimentCreateRsDTO toCreateRsDTO(Experiment experiment);
-
-    @ExperimentMappingsForStatus
-    ExperimentGetAllRsDTO toGetAllRsDTO(Experiment experiment);
+    public abstract ExperimentGetAllRsDTO toGetAllRsDTO(Experiment experiment);
 
     @ExperimentMappingsForStatus
     @ExperimentFieldsMappings
-    ExperimentGetRsDTO toGetRsDTO(Experiment experiment);
+    public abstract ExperimentGetRsDTO toGetRsDTO(Experiment experiment);
 
     @Named("getStatusName")
-    default String getStatusName(ExperimentStatus status) {
+    protected String getStatusName(ExperimentStatus status) {
         return status.name();
     }
 
     @Named("getStatusDescription")
-    default String getStatusDescription(ExperimentStatus status) {
+    protected String getStatusDescription(ExperimentStatus status) {
         return status.getDescription();
     }
 
     @Named("getEquipmentName")
-    default String getEquipmentName(Equipment equipment) {
-        return equipment == null ? "Оборудование не выбрано" : equipment.getName();
+    protected String getEquipmentName(Equipment equipment) {
+        return equipment == null
+                ? experimentInfoPageProperties.getUnknown()
+                : equipment.getName();
     }
 
     @Named("getEquipmentType")
-    default String getEquipmentType(Equipment equipment) {
-        return equipment == null ? "Оборудование не выбрано" : equipment.getType().getName();
+    protected String getEquipmentType(Equipment equipment) {
+        return equipment == null
+                ? experimentInfoPageProperties.getUnknown()
+                : equipment.getType().getName();
     }
 
     @Named("getActionName")
-    default String getActionName(Action action) {
-        return action == null ? "Действие не выбрано" : action.getName();
+    protected String getActionName(Action action) {
+        return action == null
+                ? experimentInfoPageProperties.getUnknown()
+                : action.getName();
     }
 
     @Named("getReportText")
-    default String getReportText(Report report) {
-        return report == null ? "Отчёт не сформирован" : report.getText();
+    protected String getReportText(Report report) {
+        return report == null
+                ? experimentInfoPageProperties.getUnknown()
+                : report.getText();
     }
 
     @Named("getReportResult")
-    default String getReportResult(Report report) {
-        return report == null ? "Отчёт не сформирован" : report.getResult();
+    protected String getReportResult(Report report) {
+        return report == null
+                ? experimentInfoPageProperties.getUnknown()
+                : report.getResult();
     }
 
 }
