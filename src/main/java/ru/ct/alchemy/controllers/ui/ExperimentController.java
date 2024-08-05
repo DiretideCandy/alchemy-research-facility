@@ -2,6 +2,8 @@ package ru.ct.alchemy.controllers.ui;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -41,10 +43,10 @@ public class ExperimentController {
     }
 
     @GetMapping("/create")
-    private String create() {
+    private String create(Model model) {
         ExperimentCreateRsDTO dto = experimentService.create(new ExperimentCreateRqDTO(
                 new Date(),
-                "Учёный 1"
+                (String)(model.getAttribute("currentUser"))
         ));
         return "redirect:/research/experiments/" + dto.getId();
     }
@@ -73,7 +75,7 @@ public class ExperimentController {
     }
 
     @PostMapping("/{id}/editEquipment")
-    private String editEquipment(Model model, @PathVariable long id, @RequestParam Map<String, String> formData) {
+    private String editEquipment(@PathVariable long id, @RequestParam Map<String, String> formData) {
         if (formData.containsKey("newEquipmentId")) {
             long equipmentId = Long.parseLong(formData.get("newEquipmentId"));
             experimentService.updateEquipment(id, equipmentId);
@@ -82,7 +84,7 @@ public class ExperimentController {
     }
 
     @PostMapping("/{id}/editMaterials")
-    private String editMaterials(Model model, @PathVariable long id, @RequestParam Map<String, String> formData) {
+    private String editMaterials(@PathVariable long id, @RequestParam Map<String, String> formData) {
 
         if (formData.containsKey("remove")) {
             int index = Integer.parseInt(formData.get("remove"));
@@ -95,7 +97,7 @@ public class ExperimentController {
     }
 
     @PostMapping("/{id}/editAction")
-    private String editAction(Model model, @PathVariable long id, @RequestParam Map<String, String> formData) {
+    private String editAction(@PathVariable long id, @RequestParam Map<String, String> formData) {
         if (formData.containsKey("newActionId")) {
             long actionId = Long.parseLong(formData.get("newActionId"));
             experimentService.updateAction(id, actionId);
@@ -104,25 +106,25 @@ public class ExperimentController {
     }
 
     @GetMapping("/{id}/approve")
-    private String approve(Model model, @PathVariable long id) {
+    private String approve(@PathVariable long id) {
         experimentService.approve(id);
         return "redirect:/research/experiments/" + id;
     }
 
     @GetMapping("/{id}/start")
-    private String start(Model model, @PathVariable long id) {
+    private String start(@PathVariable long id) {
         experimentService.start(id);
         return "redirect:/research/experiments/" + id;
     }
 
     @GetMapping("/{id}/finish")
-    private String finish(Model model, @PathVariable long id) {
+    private String finish(@PathVariable long id) {
         experimentService.finish(id);
         return "redirect:/research/experiments/" + id;
     }
 
     @PostMapping("/{id}/create-report")
-    private String createReport(Model model, @PathVariable long id, @RequestParam Map<String, String> formData) {
+    private String createReport(@PathVariable long id, @RequestParam Map<String, String> formData) {
         //experimentService.createReport(id, );
         return "redirect:/research/experiments/" + id;
     }
@@ -131,5 +133,14 @@ public class ExperimentController {
     private String cancel(Model model, @PathVariable long id) {
         experimentService.cancel(id);
         return "redirect:/research/experiments/" + id;
+    }
+
+    @ModelAttribute("currentUser")
+    public final String addUserNameToModel() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated()) {
+            return authentication.getName();
+        }
+        return null;
     }
 }

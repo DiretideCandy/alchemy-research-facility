@@ -21,4 +21,5 @@ public class SpringConfiguration implements WebMvcConfigurer {
     public ActionMapper actionMapper() {
         return Mappers.getMapper(ActionMapper.class);
     }
+
 }
