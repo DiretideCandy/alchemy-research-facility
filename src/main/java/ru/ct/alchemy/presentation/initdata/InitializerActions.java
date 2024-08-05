@@ -9,10 +9,11 @@ import ru.ct.alchemy.repositories.ActionRepository;
 @AllArgsConstructor
 public class InitializerActions {
 
+    private final PresentationData presentationData;
     private final ActionRepository actionRepository;
 
     @Transactional
     public void createActions(){
-
+        actionRepository.saveAll(presentationData.getActions());
     }
 }

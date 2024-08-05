@@ -2,6 +2,7 @@ package ru.ct.alchemy.presentation.initdata;
 
 import lombok.Getter;
 import org.springframework.stereotype.Component;
+import ru.ct.alchemy.model.Action;
 import ru.ct.alchemy.model.experiment.ExperimentStatus;
 import ru.ct.alchemy.model.inventory.Equipment;
 import ru.ct.alchemy.model.inventory.EquipmentType;
@@ -48,6 +49,16 @@ public class PresentationData {
             Equipment.builder().type(EquipmentType.HAMMER).name("Кузнечный молот, +5 к кузнечному делу").amount(8).build(),
             Equipment.builder().type(EquipmentType.CAULDRON).name("Котёл чугунный, крупный").amount(9).build(),
             Equipment.builder().type(EquipmentType.WAND).name("Волшебная палочка, волос единорога, бук").amount(10).build()
+    );
+
+    private final List<Action> actions = List.of(
+            Action.builder().equipmentType(EquipmentType.HAMMER).name("Разбить").build(),
+            Action.builder().equipmentType(EquipmentType.HAMMER).name("Ковать").build(),
+            Action.builder().equipmentType(EquipmentType.WAND).name("Ткнуть").build(),
+            Action.builder().equipmentType(EquipmentType.WAND).name("Зачарование").build(),
+            Action.builder().equipmentType(EquipmentType.WAND).name("Заклинание \"Трансформация\"").build(),
+            Action.builder().equipmentType(EquipmentType.CAULDRON).name("Варка").build(),
+            Action.builder().equipmentType(EquipmentType.CAULDRON).name("Смешивание").build()
     );
 
 }

@@ -1,14 +1,16 @@
 package ru.ct.alchemy.model;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import ru.ct.alchemy.model.experiment.Experiment;
 
 @Entity
 @Table(name = "reports", schema = "research")
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Report {
     @Id
     @OneToOne

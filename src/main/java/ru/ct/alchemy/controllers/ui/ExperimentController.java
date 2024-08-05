@@ -74,8 +74,10 @@ public class ExperimentController {
 
     @PostMapping("/{id}/editEquipment")
     private String editEquipment(Model model, @PathVariable long id, @RequestParam Map<String, String> formData) {
-        log.info("[editEquipment call] formData: ");
-        formData.forEach((key, value) -> log.info("{} - {}", key, value));
+        if (formData.containsKey("newEquipmentId")) {
+            long equipmentId = Long.parseLong(formData.get("newEquipmentId"));
+            experimentService.updateEquipment(id, equipmentId);
+        }
         return "redirect:/research/experiments/" + id;
     }
 
@@ -94,33 +96,40 @@ public class ExperimentController {
 
     @PostMapping("/{id}/editAction")
     private String editAction(Model model, @PathVariable long id, @RequestParam Map<String, String> formData) {
-        log.info("[editAction call] formData: ");
-        formData.forEach((key, value) -> log.info("{} - {}", key, value));
+        if (formData.containsKey("newActionId")) {
+            long actionId = Long.parseLong(formData.get("newActionId"));
+            experimentService.updateAction(id, actionId);
+        }
         return "redirect:/research/experiments/" + id;
     }
 
     @GetMapping("/{id}/approve")
     private String approve(Model model, @PathVariable long id) {
+        experimentService.approve(id);
         return "redirect:/research/experiments/" + id;
     }
 
     @GetMapping("/{id}/start")
     private String start(Model model, @PathVariable long id) {
+        experimentService.start(id);
         return "redirect:/research/experiments/" + id;
     }
 
     @GetMapping("/{id}/finish")
     private String finish(Model model, @PathVariable long id) {
+        experimentService.finish(id);
         return "redirect:/research/experiments/" + id;
     }
 
-    @GetMapping("/{id}/create-report")
-    private String createReport(Model model, @PathVariable long id) {
+    @PostMapping("/{id}/create-report")
+    private String createReport(Model model, @PathVariable long id, @RequestParam Map<String, String> formData) {
+        //experimentService.createReport(id, );
         return "redirect:/research/experiments/" + id;
     }
 
     @GetMapping("/{id}/cancel")
     private String cancel(Model model, @PathVariable long id) {
+        experimentService.cancel(id);
         return "redirect:/research/experiments/" + id;
     }
 }

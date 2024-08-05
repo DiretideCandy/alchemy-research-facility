@@ -1,11 +1,7 @@
 <#if status == "CREATED" || status == "FILLED_IN">
-    <form action="/research/experiments/${experiment.id}/editEquipment" method="get">
-        <button type="submit">Выбрать оборудование</button>
-    </form>
     <#include "buttons-materials.ftl">
-    <form action="/research/experiments/${experiment.id}/editAction" method="get">
-        <button type="submit">Выбрать действие</button>
-    </form>
+    <#include "buttons-equipment.ftl">
+    <#if eqName != unknownString><#include "buttons-action.ftl"></#if>
     <#if status == "FILLED_IN">
         <form action="/research/experiments/${experiment.id}/approve" method="get">
             <button type="submit">Согласовать</button>
@@ -20,7 +16,7 @@
         <button type="submit">Завершить проведение эксперимента</button>
     </form>
 <#elseif status == "FINISHED">
-    <form action="/research/experiments/${experiment.id}/create-report" method="get">
+    <form action="/research/experiments/${experiment.id}/create-report" method="post">
         <button type="submit">Предоставить отчёт</button>
     </form>
 <#elseif status == "REPORTED">

@@ -64,9 +64,15 @@ public class Experiment {
 
     @PrePersist
     @PreUpdate
-    private void everyUpdate(){
+    private void everyUpdate() {
         lastUpdatedAt = new Date();
         if (status == null)
             status = ExperimentStatus.CREATED;
+    }
+
+    public boolean filledIn() {
+        return (equipment != null
+                && materials != null && !materials.isEmpty()
+                && action == null);
     }
 }

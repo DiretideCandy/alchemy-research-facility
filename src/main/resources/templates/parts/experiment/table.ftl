@@ -19,23 +19,6 @@
         <td>Статус</td>
         <td>${experiment.statusDescription}</td>
     </tr>
-    <#assign eqName = experiment.equipmentName>
-    <tr>
-        <td>Оборудование</td>
-        <td>
-            <#if eqName != unknownString>
-                ${eqName}
-            <#else>
-                Не выбрано
-            </#if>
-        </td>
-    </tr>
-    <#if eqName != unknownString>
-        <tr>
-            <td>Вид оборудования</td>
-            <td>${experiment.equipmentTypeName}</td>
-        </tr>
-    </#if>
     <tr>
         <td>Используемые материалы</td>
         <td>
@@ -62,6 +45,22 @@
         </td>
     </tr>
     <tr>
+        <td>Оборудование</td>
+        <td>
+            <#if eqName != unknownString>
+                ${eqName}
+            <#else>
+                Не выбрано
+            </#if>
+        </td>
+    </tr>
+    <#if eqName != unknownString>
+        <tr>
+            <td>Вид оборудования</td>
+            <td>${experiment.equipmentTypeName}</td>
+        </tr>
+    </#if>
+    <tr>
         <td>Основное действие</td>
         <td>
             <#if experiment.actionName != unknownString>
@@ -71,7 +70,6 @@
             </#if>
         </td>
     </tr>
-    <#assign repText = experiment.reportText>
     <tr>
         <td>Отчёт</td>
         <td>

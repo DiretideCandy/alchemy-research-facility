@@ -19,4 +19,18 @@ public interface ExperimentService {
     void removeMaterial(long id, int index);
 
     void addMaterial(long id, long materialId);
+
+    void updateEquipment(long id, long equipmentId);
+
+    void updateAction(long id, long actionId);
+
+    void approve(long id);
+
+    void start(long id);
+
+    void finish(long id);
+
+    void createReport(long id, String reportText, String reportResult);
+
+    void cancel(long id);
 }

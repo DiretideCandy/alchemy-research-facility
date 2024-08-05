@@ -4,16 +4,17 @@
     <title>Эксперимент ${experiment.id}</title>
     <link rel="stylesheet" type="text/css" href="/css/styles.css">
     <script>
-        function updateAddButtonValue(selectElement) {
-            console.log("AAAAAAAAAAAAAAAAAAAAAA!!!!" + selectElement)
-            document.getElementById("button-add").disabled = false;
-            document.getElementById("button-add").value = selectElement.value;
+        function updateButtonValueAndEnable(selectElement, buttonId) {
+            document.getElementById(buttonId).disabled = false;
+            document.getElementById(buttonId).value = selectElement.value;
         }
     </script>
 </head>
 <body>
-<#include "parts/header.ftl">
 <#assign status = experiment.statusName>
+<#assign eqName = experiment.equipmentName>
+<#assign repText = experiment.reportText>
+<#include "parts/header.ftl">
 <main>
     <p></p>
     <#--  Кнопки управления процессом эксперимента  -->
