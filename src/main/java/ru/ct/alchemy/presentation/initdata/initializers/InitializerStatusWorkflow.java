@@ -1,22 +1,27 @@
-package ru.ct.alchemy.presentation.initdata;
+package ru.ct.alchemy.presentation.initdata.initializers;
 
 import lombok.AllArgsConstructor;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import ru.ct.alchemy.model.experiment.ExperimentStatusWorkflow;
 import ru.ct.alchemy.model.experiment.ExperimentStatusWorkflowPK;
+import ru.ct.alchemy.presentation.initdata.Initializer;
+import ru.ct.alchemy.presentation.initdata.PresentationData;
 import ru.ct.alchemy.repositories.ExperimentStatusWorkflowRepository;
 
 
 @Component
 @AllArgsConstructor
-public class InitializerStatusWorkflow {
+@Order(2)
+public class InitializerStatusWorkflow implements Initializer {
 
     private final ExperimentStatusWorkflowRepository experimentStatusWorkflowRepository;
     private final PresentationData presentationData;
 
+    @Override
     @Transactional
-    public void createAllStatusWorkflow() {
+    public void create() {
         // предполагаем, что initializerStatus уже выполнил свою работу //
 
         // заполняем процессы

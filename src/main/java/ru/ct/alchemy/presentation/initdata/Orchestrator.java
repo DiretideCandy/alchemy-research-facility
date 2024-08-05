@@ -6,32 +6,23 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Slf4j
 @Component
 @AllArgsConstructor
 public class Orchestrator {
 
-    private final InitializerStatusWorkflow initializerStatusWorkflow;
-    private final InitializerEnums initializerEnums;
-    private final InitializerMaterials initializerMaterials;
-    private final InitializerEquipment initializerEquipment;
-    private final InitializerActions initializerActions;
-    private final InitializerExperiments initializerExperiments;
+    private final List<Initializer> initializersOrderedList;
 
     @EventListener(ApplicationReadyEvent.class)
     public void createAll(){
         log.info("Началась инициализация тестовых данных в БД ... ");
 
-        initializerEnums.createAllStatuses();
-        initializerEnums.createAllInventoryTypes();
-
-        initializerStatusWorkflow.createAllStatusWorkflow();
-        initializerMaterials.createMaterials();
-        initializerEquipment.createEquipment();
-        initializerActions.createActions();
-
-
-        initializerExperiments.createExperiments();
+        initializersOrderedList.forEach(i -> {
+            log.info("Инициализация {}", i.getClass().getSuperclass().getSimpleName());
+            i.create();
+        });
 
         log.info("Инициализация тестовых данных в БД завершена!");
     }

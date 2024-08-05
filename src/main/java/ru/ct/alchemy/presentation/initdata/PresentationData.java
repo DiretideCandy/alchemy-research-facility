@@ -8,6 +8,7 @@ import ru.ct.alchemy.model.inventory.Equipment;
 import ru.ct.alchemy.model.inventory.EquipmentType;
 import ru.ct.alchemy.model.inventory.Material;
 import ru.ct.alchemy.model.inventory.MaterialType;
+import ru.ct.alchemy.model.security.Role;
 import ru.ct.alchemy.presentation.initdata.tuples.Triple;
 
 import java.util.List;
@@ -59,6 +60,13 @@ public class PresentationData {
             Action.builder().equipmentType(EquipmentType.WAND).name("Заклинание \"Трансформация\"").build(),
             Action.builder().equipmentType(EquipmentType.CAULDRON).name("Варка").build(),
             Action.builder().equipmentType(EquipmentType.CAULDRON).name("Смешивание").build()
+    );
+
+    private final List<Role> roles = List.of(
+            Role.builder().name("SYSTEM_ADMIN").build(),
+            Role.builder().name("SCIENTIST").build(),
+            Role.builder().name("MANAGER").build(),
+            Role.builder().name("API").build()
     );
 
 }
