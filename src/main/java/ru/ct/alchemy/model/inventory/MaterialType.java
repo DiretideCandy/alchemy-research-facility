@@ -14,5 +14,5 @@ public enum MaterialType {
 
     ;
 
-    private final String name;
+    private final String prettyName;
 }

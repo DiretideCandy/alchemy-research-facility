@@ -26,35 +26,35 @@ public class InitializerUsers implements Initializer {
                 User.builder()
                         .userName("admin")
                         .password("admin")
-                        .roles(Set.of(
-                                roleRepository.findByName("SYSTEM_ADMIN"),
-                                roleRepository.findByName("SCIENTIST"),
-                                roleRepository.findByName("MANAGER"),
-                                roleRepository.findByName("API")))
-                        .build());
+                        .build(),
+                Set.of(
+                        roleRepository.findByName("SYSTEM_ADMIN"),
+                        roleRepository.findByName("SCIENTIST"),
+                        roleRepository.findByName("MANAGER"),
+                        roleRepository.findByName("API")));
 
         userService.save(
                 User.builder()
                         .userName("scientist")
                         .password("scientist")
-                        .roles(Set.of(
-                                roleRepository.findByName("SCIENTIST")))
-                        .build());
+                        .build(),
+                Set.of(
+                        roleRepository.findByName("SCIENTIST")));
 
         userService.save(
                 User.builder()
                         .userName("manager")
                         .password("manager")
-                        .roles(Set.of(
-                                roleRepository.findByName("MANAGER")))
-                        .build());
+                        .build(),
+                Set.of(
+                        roleRepository.findByName("MANAGER")));
 
         userService.save(
                 User.builder()
                         .userName("apprentice")
                         .password("apprentice")
-                        .roles(Set.of(
-                                roleRepository.findByName("API")))
-                        .build());
+                        .build(),
+                Set.of(
+                        roleRepository.findByName("API")));
     }
 }

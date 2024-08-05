@@ -20,9 +20,13 @@ public class MaterialTypeEntity {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "pretty_name")
+    private String prettyName;
+
     public static MaterialTypeEntity createEntity(MaterialType materialType) {
         return new MaterialTypeEntity(
-                materialType.name()
+                materialType.name(),
+                materialType.getPrettyName()
         );
     }
 }

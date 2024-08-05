@@ -6,12 +6,12 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import ru.ct.alchemy.model.security.Role;
 import ru.ct.alchemy.model.security.User;
-import ru.ct.alchemy.repositories.RoleRepository;
 import ru.ct.alchemy.repositories.UserRepository;
 import ru.ct.alchemy.services.interfaces.UserService;
 
-import java.util.HashSet;
+import java.util.Set;
 
 @Slf4j
 @Service
@@ -19,13 +19,12 @@ import java.util.HashSet;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
-    private final RoleRepository roleRepository;
 
     @Override
-    public void save(User user) {
+    public void save(User user, Set<Role> roles) {
         PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRoles(new HashSet<>(roleRepository.findAll()));
+        user.setRoles(roles);
         userRepository.save(user);
     }
 

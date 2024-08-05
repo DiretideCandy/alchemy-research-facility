@@ -19,6 +19,12 @@
         <td>Статус</td>
         <td>${experiment.statusDescription}</td>
     </tr>
+    <#if approvedBy != unknownString>
+        <tr>
+            <td>Согласовано</td>
+            <td>${approvedBy}</td>
+        </tr>
+    </#if>
     <tr>
         <td>Используемые материалы</td>
         <td>
@@ -36,7 +42,7 @@
                     <#list experiment.materials as material>
                         <tr>
                             <td>${material.name}</td>
-                            <td>${material.type}</td>
+                            <td>${material.typePrettyName}</td>
                         </tr>
                     </#list>
                     </tbody>
@@ -57,7 +63,7 @@
     <#if eqName != unknownString>
         <tr>
             <td>Вид оборудования</td>
-            <td>${experiment.equipmentTypeName}</td>
+            <td>${experiment.equipmentTypePrettyName}</td>
         </tr>
     </#if>
     <tr>

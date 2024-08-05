@@ -6,13 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import ru.ct.alchemy.configuration.ExperimentInfoPageProperties;
 import ru.ct.alchemy.model.Action;
 import ru.ct.alchemy.model.Report;
-import ru.ct.alchemy.model.dto.ExperimentCreateRqDTO;
-import ru.ct.alchemy.model.dto.ExperimentCreateRsDTO;
-import ru.ct.alchemy.model.dto.ExperimentGetAllRsDTO;
-import ru.ct.alchemy.model.dto.ExperimentGetRsDTO;
+import ru.ct.alchemy.model.dto.*;
 import ru.ct.alchemy.model.experiment.Experiment;
 import ru.ct.alchemy.model.experiment.ExperimentStatus;
 import ru.ct.alchemy.model.inventory.Equipment;
+import ru.ct.alchemy.model.inventory.Material;
+
+import java.util.List;
 
 @Mapper(componentModel = "spring")
 public abstract class ExperimentMapper {
@@ -54,11 +54,11 @@ public abstract class ExperimentMapper {
                 ? experimentInfoPageProperties.getUnknown()
                 : equipment.getType().name();
     }
-    @Named("getEquipmentTypeName")
-    protected String getEquipmentTypeName(Equipment equipment) {
+    @Named("getEquipmentTypePrettyName")
+    protected String getEquipmentTypePrettyName(Equipment equipment) {
         return equipment == null
                 ? experimentInfoPageProperties.getUnknown()
-                : equipment.getType().getName();
+                : equipment.getType().getPrettyName();
     }
 
     @Named("getActionName")
@@ -82,4 +82,17 @@ public abstract class ExperimentMapper {
                 : report.getResult();
     }
 
+    @Named("getNullableString")
+    protected String getNullableString(String string){
+        return string == null
+                ? experimentInfoPageProperties.getUnknown()
+                : string;
+    }
+
+    @Named("getMaterialDTO")
+    protected List<MaterialDTO> getMaterialDTO(List<Material> materials){
+        return materials.stream()
+                .map(MaterialMapper.INSTANCE::toDTO)
+                .toList();
+    }
 }

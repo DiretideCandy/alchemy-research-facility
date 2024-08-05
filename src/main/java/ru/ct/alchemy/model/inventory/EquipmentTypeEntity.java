@@ -20,9 +20,13 @@ public class EquipmentTypeEntity {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "pretty_name")
+    private String prettyName;
+
     public static EquipmentTypeEntity createEntity(EquipmentType equipmentType) {
         return new EquipmentTypeEntity(
-                equipmentType.name()
+                equipmentType.name(),
+                equipmentType.getPrettyName()
         );
     }
 }

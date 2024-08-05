@@ -3,6 +3,7 @@ package ru.ct.alchemy.controllers.ui;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -46,7 +47,7 @@ public class ExperimentController {
     private String create(Model model) {
         ExperimentCreateRsDTO dto = experimentService.create(new ExperimentCreateRqDTO(
                 new Date(),
-                (String)(model.getAttribute("currentUser"))
+                (String) (model.getAttribute("currentUser"))
         ));
         return "redirect:/research/experiments/" + dto.getId();
     }
@@ -70,6 +71,8 @@ public class ExperimentController {
             if (!experimentInfoPageProperties.getUnknown().equals(experiment.getEquipmentType()))
                 model.addAttribute("allActions", actionService.findByEquipmentType(experiment.getEquipmentType()));
         }
+
+        //model.asMap().forEach((k, v) -> log.info("modeL: {} - {}", k, v));
 
         return "experiment-info";
     }
@@ -135,12 +138,16 @@ public class ExperimentController {
         return "redirect:/research/experiments/" + id;
     }
 
-    @ModelAttribute("currentUser")
-    public final String addUserNameToModel() {
+    @ModelAttribute
+    public void addUserNameToModel(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated()) {
-            return authentication.getName();
+            model.addAttribute("currentUser", authentication.getName());
+            List<String> roles = authentication.getAuthorities()
+                    .stream()
+                    .map(GrantedAuthority::getAuthority)
+                    .toList();
+            model.addAttribute("roles", roles);
         }
-        return null;
     }
 }

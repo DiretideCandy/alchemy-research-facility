@@ -12,5 +12,5 @@ public enum EquipmentType {
     HAMMER("Молот"),
     ;
 
-    private final String name;
+    private final String prettyName;
 }

@@ -71,7 +71,7 @@ public class ExperimentServiceImpl implements ExperimentService {
         if (index >= 0 && index < materials.size()) {
 
             materials.remove(index);
-            if (materials.isEmpty() && experiment.getStatus() != ExperimentStatus.FILLED_IN)
+            if (materials.isEmpty() && experiment.getStatus() == ExperimentStatus.FILLED_IN)
                 experiment.setStatus(ExperimentStatus.CREATED);
 
             experimentRepository.save(experiment);

@@ -12,7 +12,7 @@
         <#list equipment as eq>
             <tr>
                 <td>${eq.name}</td>
-                <td>${eq.type}</td>
+                <td>${eq.typePrettyName}</td>
                 <td>${eq.amount}</td>
             </tr>
         </#list>

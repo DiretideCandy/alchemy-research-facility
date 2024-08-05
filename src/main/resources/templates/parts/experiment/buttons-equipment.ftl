@@ -1,4 +1,5 @@
 <form action="/research/experiments/${experiment.id}/editEquipment" method="post">
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
     <table class="edit-table">
         <tr>
             <td>
@@ -9,7 +10,7 @@
                     <option value="" selected disabled hidden>Выбрать оборудование</option>
                     <#list allEquipment as equipmentInInventory>
                         <option value="${equipmentInInventory.id}">
-                            ${equipmentInInventory.name} - ${equipmentInInventory.type}
+                            ${equipmentInInventory.name} - ${equipmentInInventory.typePrettyName}
                         </option>
                     </#list>
                 </select>

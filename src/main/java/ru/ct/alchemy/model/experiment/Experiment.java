@@ -7,6 +7,7 @@ import ru.ct.alchemy.model.Action;
 import ru.ct.alchemy.model.Report;
 import ru.ct.alchemy.model.inventory.Equipment;
 import ru.ct.alchemy.model.inventory.Material;
+import ru.ct.alchemy.model.security.User;
 
 import java.util.Date;
 import java.util.List;
@@ -46,6 +47,9 @@ public class Experiment {
     @Column(name = "created_by")
     private String createdBy;
 
+    @Column(name = "approved_by")
+    private String approvedBy;
+
     @ManyToOne
     @JoinColumn(name = "equipment")
     private Equipment equipment;
@@ -73,6 +77,6 @@ public class Experiment {
     public boolean filledIn() {
         return (equipment != null
                 && materials != null && !materials.isEmpty()
-                && action == null);
+                && action != null);
     }
 }

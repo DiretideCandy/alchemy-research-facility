@@ -12,7 +12,7 @@
         <#list materials as material>
             <tr>
                 <td>${material.name}</td>
-                <td>${material.type}</td>
+                <td>${material.typePrettyName}</td>
                 <td>${material.amount}</td>
             </tr>
         </#list>

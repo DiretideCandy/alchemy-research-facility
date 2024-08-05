@@ -1,4 +1,5 @@
 <form action="/research/experiments/${experiment.id}/editMaterials" method="post">
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
     <table class="edit-table">
         <tbody>
         <#list experiment.materials as material>
@@ -7,7 +8,7 @@
                     <button type="submit" name="remove" value="${material_index}">Удалить материал</button>
                 </td>
                 <td>
-                    ${material.name} - ${material.type}
+                    ${material.name} - ${material.typePrettyName}
                 </td>
             </tr>
         </#list>
@@ -20,7 +21,7 @@
                     <option value="" selected disabled hidden>Выбрать материал для добавления</option>
                     <#list allMaterials as materialInInventory>
                         <option value="${materialInInventory.id}">
-                            ${materialInInventory.name} - ${materialInInventory.type}
+                            ${materialInInventory.name} - ${materialInInventory.typePrettyName}
                         </option>
                     </#list>
                 </select>
