@@ -31,6 +31,8 @@ public abstract class ExperimentMapper {
     @ExperimentFieldsMappings
     public abstract ExperimentGetRsDTO toGetRsDTO(Experiment experiment);
 
+    public abstract ExperimentPresentationDTO toPresentationDTO(Experiment experiment);
+
     @Named("getStatusName")
     protected String getStatusName(ExperimentStatus status) {
         return status.name();

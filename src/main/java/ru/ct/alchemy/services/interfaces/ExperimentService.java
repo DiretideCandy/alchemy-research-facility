@@ -1,9 +1,7 @@
 package ru.ct.alchemy.services.interfaces;
 
-import ru.ct.alchemy.model.dto.ExperimentCreateRqDTO;
-import ru.ct.alchemy.model.dto.ExperimentCreateRsDTO;
-import ru.ct.alchemy.model.dto.ExperimentGetAllRsDTO;
-import ru.ct.alchemy.model.dto.ExperimentGetRsDTO;
+import ru.ct.alchemy.model.dto.*;
+import ru.ct.alchemy.model.experiment.ExperimentStatus;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,6 +13,7 @@ public interface ExperimentService {
     ExperimentCreateRsDTO create(ExperimentCreateRqDTO experimentCreateRqDTO);
 
     Optional<ExperimentGetRsDTO> findById(long id);
+    List<ExperimentPresentationDTO> findByStatus(ExperimentStatus experimentStatus);
 
     void removeMaterial(long id, int index);
 
@@ -33,4 +32,6 @@ public interface ExperimentService {
     void createReport(long id, String reportText, String reportResult);
 
     void cancel(long id);
+
+    void changeProgress(long id, int increment);
 }

@@ -7,7 +7,6 @@ import ru.ct.alchemy.model.Action;
 import ru.ct.alchemy.model.Report;
 import ru.ct.alchemy.model.inventory.Equipment;
 import ru.ct.alchemy.model.inventory.Material;
-import ru.ct.alchemy.model.security.User;
 
 import java.util.Date;
 import java.util.List;
@@ -33,6 +32,9 @@ public class Experiment {
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private ExperimentStatus status;
+
+    @Column(name = "progress")
+    private Integer progress;
 
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:SS")
@@ -70,13 +72,16 @@ public class Experiment {
     @PreUpdate
     private void everyUpdate() {
         lastUpdatedAt = new Date();
-        if (status == null)
-            status = ExperimentStatus.CREATED;
+
+        // Инициализация обязательных полей:
+        if (status == null) status = ExperimentStatus.CREATED;
+        if (progress == null) progress = 0;
     }
 
     public boolean filledIn() {
         return (equipment != null
-                && materials != null && !materials.isEmpty()
+                && materials != null
+                && !materials.isEmpty()
                 && action != null);
     }
 }

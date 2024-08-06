@@ -20,10 +20,6 @@
         <button type="submit">Начать проведение эксперимента</button>
     </form>
 <#elseif status == "RUNNING">
-    <form action="/research/experiments/${experiment.id}/finish" method="get">
-        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-        <button type="submit">Завершить проведение эксперимента</button>
-    </form>
 <#elseif status == "FINISHED">
     <form action="/research/experiments/${experiment.id}/create-report" method="post">
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>

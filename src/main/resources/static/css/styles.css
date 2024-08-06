@@ -63,3 +63,13 @@ table table {
     padding: 2px;
     text-align: left;
 }
+
+.progress-bar {
+    height:18px;
+    background-color: #dddddd;
+}
+.progress-bar-bar {
+     height:18px;
+     text-align: right;
+     background-color: #bfff00;
+ }

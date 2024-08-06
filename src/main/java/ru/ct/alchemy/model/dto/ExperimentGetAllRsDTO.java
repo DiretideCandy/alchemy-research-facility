@@ -15,4 +15,5 @@ public class ExperimentGetAllRsDTO {
     private String createdBy;
     private String statusName;
     private String statusDescription;
+    private Integer progress;
 }

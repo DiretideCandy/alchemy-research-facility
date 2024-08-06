@@ -19,6 +19,12 @@
         <td>Статус</td>
         <td>${experiment.statusDescription}</td>
     </tr>
+    <#if progress != 0>
+        <tr>
+            <td>Прогресс</td>
+            <td><#include "progress-bar.ftl"></td>
+        </tr>
+    </#if>
     <#if approvedBy != unknownString>
         <tr>
             <td>Согласовано</td>

@@ -25,4 +25,5 @@ public class ExperimentGetRsDTO {
     private String actionName;
     private String reportText;
     private String reportResult;
+    private Integer progress;
 }

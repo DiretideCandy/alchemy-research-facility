@@ -6,10 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.ct.alchemy.model.Action;
 import ru.ct.alchemy.model.Report;
-import ru.ct.alchemy.model.dto.ExperimentCreateRqDTO;
-import ru.ct.alchemy.model.dto.ExperimentCreateRsDTO;
-import ru.ct.alchemy.model.dto.ExperimentGetAllRsDTO;
-import ru.ct.alchemy.model.dto.ExperimentGetRsDTO;
+import ru.ct.alchemy.model.dto.*;
 import ru.ct.alchemy.model.experiment.Experiment;
 import ru.ct.alchemy.model.experiment.ExperimentStatus;
 import ru.ct.alchemy.model.inventory.Equipment;
@@ -36,6 +33,7 @@ public class ExperimentServiceImpl implements ExperimentService {
     private final ActionRepository actionRepository;
 
     @Override
+    @Transactional(readOnly = true)
     public List<ExperimentGetAllRsDTO> findAll() {
         return experimentRepository.findAll()
                 .stream()
@@ -52,9 +50,18 @@ public class ExperimentServiceImpl implements ExperimentService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Optional<ExperimentGetRsDTO> findById(long id) {
         return experimentRepository.findById(id)
                 .map(experimentMapper::toGetRsDTO);
+    }
+
+    @Override
+    public List<ExperimentPresentationDTO> findByStatus(ExperimentStatus experimentStatus) {
+        return experimentRepository.findByStatus(experimentStatus)
+                .stream()
+                .map(experimentMapper::toPresentationDTO)
+                .toList();
     }
 
     @Override
@@ -207,6 +214,22 @@ public class ExperimentServiceImpl implements ExperimentService {
                 .orElseThrow(() -> new EntityNotFoundException("Эксперимент #"+id+" не найден"));
 
         experiment.setStatus(ExperimentStatus.CANCELLED);
+        experimentRepository.save(experiment);
+    }
+
+    @Override
+    @Transactional
+    public void changeProgress(long id, int increment){
+        Experiment experiment = experimentRepository.findByIdAndStatus(id, ExperimentStatus.RUNNING)
+                .orElseThrow(() -> new EntityNotFoundException(
+                        "Эксперимент #"+id+" не найден " +
+                                "или не в статусе " + ExperimentStatus.RUNNING.getDescription()
+                ));
+        int newProgress = Math.max(Math.min(100, experiment.getProgress() + increment), 0);
+        experiment.setProgress(newProgress);
+        if (newProgress == 100)
+            experiment.setStatus(ExperimentStatus.FINISHED);
+
         experimentRepository.save(experiment);
     }
 }

@@ -12,6 +12,7 @@
 </head>
 <body>
 <#assign status = experiment.statusName>
+<#assign progress = experiment.progress>
 <#assign eqName = experiment.equipmentName>
 <#assign repText = experiment.reportText>
 <#assign approvedBy = experiment.approvedBy>

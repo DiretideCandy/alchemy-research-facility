@@ -14,15 +14,28 @@
     </form>
     <p></p>
     <table>
-        <#list experiments as experiment>
+        <thead>
             <tr>
-                <td><a href="/research/experiments/${experiment.id}">#${experiment.id}</a></td>
-                <td>${experiment.createdAt}</td>
-                <td>${experiment.createdBy}</td>
-                <td>${experiment.statusName}</td>
-                <td>${experiment.statusDescription}</td>
+                <th>Номер</th>
+                <th>Дата создания</th>
+                <th>Ответственный</th>
+                <th>Статус</th>
+                <th>Прогресс</th>
             </tr>
-        </#list>
+        </thead>
+        <tbody>
+            <#list experiments as experiment>
+                <#assign progress = experiment.progress>
+                <tr>
+                    <td><a href="/research/experiments/${experiment.id}">#${experiment.id}</a></td>
+                    <td>${experiment.createdAt}</td>
+                    <td>${experiment.createdBy}</td>
+                    <td>${experiment.statusDescription}</td>
+                    <td><#include "parts/experiment/progress-bar.ftl"></td>
+                </tr>
+            </#list>
+        </tbody>
+
     </table>
 </main>
 </body>
