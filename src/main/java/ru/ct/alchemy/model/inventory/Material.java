@@ -2,9 +2,6 @@ package ru.ct.alchemy.model.inventory;
 
 import jakarta.persistence.*;
 import lombok.*;
-import ru.ct.alchemy.model.experiment.Experiment;
-
-import java.util.List;
 
 @Entity
 @Table(name = "materials", schema = "research")
@@ -30,6 +27,4 @@ public class Material {
     @Column(name = "amount")
     private Integer amount;
 
-    @ManyToMany(mappedBy = "materials")
-    private List<Experiment> experiments;
 }

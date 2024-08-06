@@ -21,8 +21,10 @@ public interface EquipmentMapper {
     default String getEquipmentTypePrettyName(EquipmentType type){
         return type.getPrettyName();
     }
+
     @Named("getEquipmentTypeName")
     default String getEquipmentTypeName(EquipmentType type){
         return type.name();
     }
+
 }

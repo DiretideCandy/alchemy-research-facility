@@ -7,29 +7,28 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import ru.ct.alchemy.model.dto.ActionDTO;
-import ru.ct.alchemy.model.dto.EquipmentDTO;
-import ru.ct.alchemy.services.interfaces.ActionService;
-import ru.ct.alchemy.services.interfaces.EquipmentService;
+import ru.ct.alchemy.model.dto.ReportDTO;
+import ru.ct.alchemy.services.interfaces.ReportService;
 
-import java.util.List;
+import java.util.Optional;
 
 @Controller
-@RequestMapping("/research/equipment")
+@RequestMapping("/research/reports")
 @AllArgsConstructor
-public class EquipmentController {
+public class ReportController {
 
-    private final EquipmentService equipmentService;
-    private final ActionService actionService;
+    private final ReportService reportService;
 
-    @GetMapping
-    private String equipment(Model model) {
-        List<EquipmentDTO> equipment = equipmentService.findAll();
-        model.addAttribute("equipment", equipment);
-        List<ActionDTO> actions = actionService.findAll();
-        model.addAttribute("actions", actions);
-        return "equipment";
+    @GetMapping("/{id}")
+    private String show(Model model, @PathVariable long id) {
+        Optional<ReportDTO> serviceResponse = reportService.findById(id);
+        if (serviceResponse.isEmpty())
+            return "error/404";
+
+        model.addAttribute("report", serviceResponse.get());
+        return "report";
     }
 
     @ModelAttribute("currentUser")

@@ -25,10 +25,6 @@ public class Experiment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "report")
-    private Report report;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private ExperimentStatus status;
@@ -55,6 +51,10 @@ public class Experiment {
     @ManyToOne
     @JoinColumn(name = "equipment")
     private Equipment equipment;
+
+    @OneToOne
+    @JoinColumn(name = "report_id", referencedColumnName = "id")
+    private Report report;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(

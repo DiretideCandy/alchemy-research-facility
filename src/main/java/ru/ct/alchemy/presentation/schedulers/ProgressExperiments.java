@@ -3,6 +3,7 @@ package ru.ct.alchemy.presentation.schedulers;
 import lombok.AllArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import ru.ct.alchemy.model.experiment.ExperimentStatus;
 import ru.ct.alchemy.services.interfaces.ExperimentService;
 
@@ -15,7 +16,8 @@ public class ProgressExperiments {
     private final ExperimentService experimentService;
 
     @Scheduled(cron = "*/15 * * * * *")
-    private void incrementProgress(){
+    @Transactional
+    public void incrementProgress(){
         Random rnd = new Random();
 
         experimentService.findByStatus(ExperimentStatus.RUNNING)

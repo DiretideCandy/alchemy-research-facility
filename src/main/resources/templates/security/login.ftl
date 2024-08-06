@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <title>Alchemy Research Facility</title>
+    <title>Login</title>
     <link rel="stylesheet" type="text/css" href="/css/styles.css">
 </head>
-<#include "parts/header.ftl">
+<#include "../parts/header.ftl">
 <body>
 <form method="POST" action="/login" class="form-signin">
     <h2 class="form-heading">Log in</h2>

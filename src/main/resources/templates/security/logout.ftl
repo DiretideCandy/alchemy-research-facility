@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <title>Alchemy Research Facility</title>
+    <title>Logout</title>
     <link rel="stylesheet" type="text/css" href="/css/styles.css">
 </head>
-<#include "parts/header.ftl">
+<#include "../parts/header.ftl">
 <body>
 <form method="POST" action="/logout" class="form-signin">
     <h2 class="form-heading">Log out</h2>

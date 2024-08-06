@@ -1,6 +1,7 @@
 package ru.ct.alchemy.services.interfaces;
 
 import ru.ct.alchemy.model.dto.*;
+import ru.ct.alchemy.model.dto.experiments.*;
 import ru.ct.alchemy.model.experiment.ExperimentStatus;
 
 import java.util.List;
@@ -23,15 +24,15 @@ public interface ExperimentService {
 
     void updateAction(long id, long actionId);
 
-    void approve(long id);
+    void approve(long id, String approvedBy);
 
     void start(long id);
 
     void finish(long id);
 
-    void createReport(long id, String reportText, String reportResult);
-
     void cancel(long id);
 
     void changeProgress(long id, int increment);
+
+    void createReport(long id, ReportDTO reportDTO);
 }

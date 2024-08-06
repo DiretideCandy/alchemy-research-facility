@@ -8,11 +8,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ru.ct.alchemy.configuration.ExperimentInfoPageProperties;
-import ru.ct.alchemy.model.dto.ExperimentCreateRqDTO;
-import ru.ct.alchemy.model.dto.ExperimentCreateRsDTO;
-import ru.ct.alchemy.model.dto.ExperimentGetAllRsDTO;
-import ru.ct.alchemy.model.dto.ExperimentGetRsDTO;
+import ru.ct.alchemy.configuration.ExtraPropertiesHolder;
+import ru.ct.alchemy.model.dto.experiments.ExperimentCreateRqDTO;
+import ru.ct.alchemy.model.dto.experiments.ExperimentCreateRsDTO;
+import ru.ct.alchemy.model.dto.experiments.ExperimentGetAllRsDTO;
+import ru.ct.alchemy.model.dto.experiments.ExperimentGetRsDTO;
 import ru.ct.alchemy.model.experiment.ExperimentStatus;
 import ru.ct.alchemy.services.interfaces.ActionService;
 import ru.ct.alchemy.services.interfaces.EquipmentService;
@@ -34,7 +34,8 @@ public class ExperimentController {
     private final EquipmentService equipmentService;
     private final MaterialService materialService;
     private final ActionService actionService;
-    private final ExperimentInfoPageProperties experimentInfoPageProperties;
+
+    private final ExtraPropertiesHolder extraPropertiesHolder;
 
     @GetMapping
     private String showAll(Model model) {
@@ -61,14 +62,14 @@ public class ExperimentController {
 
         ExperimentGetRsDTO experiment = serviceResponse.get();
         model.addAttribute("experiment", experiment);
-        model.addAttribute("unknownString", experimentInfoPageProperties.getUnknown());
+        model.addAttribute("unknownString", extraPropertiesHolder.getUnknown());
 
         if (ExperimentStatus.CREATED.name().equals(experiment.getStatusName())
                 || ExperimentStatus.FILLED_IN.name().equals(experiment.getStatusName())) {
             model.addAttribute("allMaterials", materialService.findAll());
             model.addAttribute("allEquipment", equipmentService.findAll());
 
-            if (!experimentInfoPageProperties.getUnknown().equals(experiment.getEquipmentType()))
+            if (!extraPropertiesHolder.getUnknown().equals(experiment.getEquipmentType()))
                 model.addAttribute("allActions", actionService.findByEquipmentType(experiment.getEquipmentType()));
         }
 
@@ -109,8 +110,8 @@ public class ExperimentController {
     }
 
     @GetMapping("/{id}/approve")
-    private String approve(@PathVariable long id) {
-        experimentService.approve(id);
+    private String approve(Model model, @PathVariable long id) {
+        experimentService.approve(id, (String) (model.getAttribute("currentUser")));
         return "redirect:/research/experiments/" + id;
     }
 
@@ -123,12 +124,6 @@ public class ExperimentController {
     @GetMapping("/{id}/finish")
     private String finish(@PathVariable long id) {
         experimentService.finish(id);
-        return "redirect:/research/experiments/" + id;
-    }
-
-    @PostMapping("/{id}/create-report")
-    private String createReport(@PathVariable long id, @RequestParam Map<String, String> formData) {
-        //experimentService.createReport(id, );
         return "redirect:/research/experiments/" + id;
     }
 

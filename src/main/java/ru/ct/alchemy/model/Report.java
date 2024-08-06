@@ -8,16 +8,22 @@ import ru.ct.alchemy.model.experiment.Experiment;
 @Table(name = "reports", schema = "research")
 @Getter
 @Setter
+@ToString
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Report {
-    @Id
-    @OneToOne
-    @JoinColumn(name = "experiment_id")
-    private Experiment id;
 
-    @Column(name="text")
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
+
+    @OneToOne
+    @JoinColumn(name = "experiment_id", referencedColumnName = "id")
+    private Experiment experiment;
+
+    @Column(name="text", columnDefinition = "text")
     private String text;
 
     @Column(name = "result")

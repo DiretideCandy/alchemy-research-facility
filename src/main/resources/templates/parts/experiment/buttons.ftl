@@ -21,11 +21,13 @@
     </form>
 <#elseif status == "RUNNING">
 <#elseif status == "FINISHED">
-    <form action="/research/experiments/${experiment.id}/create-report" method="post">
-        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-        <button type="submit">Предоставить отчёт</button>
+    <form>
+        <button type="submit" disabled>Ожидайте формирования отчёта</button>
     </form>
 <#elseif status == "REPORTED">
+    <form action="/research/reports/${experiment.reportId}" method="get">
+        <button type="submit">Просмотреть отчёт</button>
+    </form>
 </#if>
 
 <#if status != "CANCELLED">

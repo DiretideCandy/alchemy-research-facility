@@ -12,6 +12,7 @@
                 </td>
             </tr>
         </#list>
+        <#if experiment.materials?size lt 3>
         <tr>
             <td>
                 <button type="submit" id="add-material-button" name="add" disabled>Добавить</button>
@@ -27,6 +28,7 @@
                 </select>
             </td>
         </tr>
+        </#if>
         </tbody>
     </table>
 </form>

@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface ActionService {
     List<ActionDTO> findByEquipmentType(String equipmentType);
+
+    List<ActionDTO> findAll();
 }

@@ -7,8 +7,13 @@
 <body>
 <#include "parts/header.ftl">
 <main>
-    <h1>Список материалов</h1>
+    <h2>Список материалов</h2>
     <table>
+        <tr>
+            <th>Название</th>
+            <th>Тип или источник</th>
+            <th>На складе</th>
+        </tr>
         <#list materials as material>
             <tr>
                 <td>${material.name}</td>

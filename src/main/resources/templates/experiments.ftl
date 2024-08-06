@@ -7,7 +7,7 @@
 <body>
 <#include "parts/header.ftl">
 <main>
-    <h1>Список экспериментов</h1>
+    <h2>Список экспериментов</h2>
     <p></p>
     <form action="/research/experiments/create" method="get">
         <button type="submit">Новый эксперимент</button>

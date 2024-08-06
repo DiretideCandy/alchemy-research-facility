@@ -1,4 +1,4 @@
-package ru.ct.alchemy.model.dto;
+package ru.ct.alchemy.model.dto.experiments;
 
 import lombok.Getter;
 import lombok.Setter;

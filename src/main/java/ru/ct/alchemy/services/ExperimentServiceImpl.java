@@ -7,15 +7,13 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.ct.alchemy.model.Action;
 import ru.ct.alchemy.model.Report;
 import ru.ct.alchemy.model.dto.*;
+import ru.ct.alchemy.model.dto.experiments.*;
 import ru.ct.alchemy.model.experiment.Experiment;
 import ru.ct.alchemy.model.experiment.ExperimentStatus;
 import ru.ct.alchemy.model.inventory.Equipment;
 import ru.ct.alchemy.model.inventory.Material;
 import ru.ct.alchemy.model.mappers.ExperimentMapper;
-import ru.ct.alchemy.repositories.ActionRepository;
-import ru.ct.alchemy.repositories.EquipmentRepository;
-import ru.ct.alchemy.repositories.ExperimentRepository;
-import ru.ct.alchemy.repositories.MaterialRepository;
+import ru.ct.alchemy.repositories.*;
 import ru.ct.alchemy.services.interfaces.ExperimentService;
 
 import java.util.List;
@@ -25,12 +23,13 @@ import java.util.Optional;
 @AllArgsConstructor
 public class ExperimentServiceImpl implements ExperimentService {
 
+    private final ExperimentMapper experimentMapper;
     private final ExperimentRepository experimentRepository;
 
-    private final ExperimentMapper experimentMapper;
     private final MaterialRepository materialRepository;
     private final EquipmentRepository equipmentRepository;
     private final ActionRepository actionRepository;
+    private final ReportRepository reportRepository;
 
     @Override
     @Transactional(readOnly = true)
@@ -70,9 +69,7 @@ public class ExperimentServiceImpl implements ExperimentService {
         Experiment experiment = experimentRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Эксперимент #"+id+" не найден"));
 
-        if (experiment.getStatus() != ExperimentStatus.FILLED_IN
-            && experiment.getStatus() != ExperimentStatus.CREATED)
-            return;
+        throwIfNotEditable(experiment);
 
         List<Material> materials = experiment.getMaterials();
         if (index >= 0 && index < materials.size()) {
@@ -94,9 +91,7 @@ public class ExperimentServiceImpl implements ExperimentService {
         Experiment experiment = experimentRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Эксперимент #"+id+" не найден"));
 
-        if (experiment.getStatus() != ExperimentStatus.FILLED_IN
-                && experiment.getStatus() != ExperimentStatus.CREATED)
-            return;
+        throwIfNotEditable(experiment);
 
         Material material = materialRepository.findById(materialId)
                 .orElseThrow(() -> new EntityNotFoundException("Материал #"+id+" не найден"));
@@ -114,16 +109,15 @@ public class ExperimentServiceImpl implements ExperimentService {
         Experiment experiment = experimentRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Эксперимент #"+id+" не найден"));
 
-        if (experiment.getStatus() != ExperimentStatus.FILLED_IN
-                && experiment.getStatus() != ExperimentStatus.CREATED)
-            return;
+        throwIfNotEditable(experiment);
 
         Equipment equipment = equipmentRepository.findById(equipmentId)
                 .orElseThrow(() -> new EntityNotFoundException("Оборудование #"+equipmentId+" не найдено"));
 
         experiment.setEquipment(equipment);
-        if (experiment.getStatus() == ExperimentStatus.CREATED && experiment.filledIn())
-            experiment.setStatus(ExperimentStatus.FILLED_IN);
+        experiment.setAction(null);
+        if (experiment.getStatus() == ExperimentStatus.FILLED_IN)
+            experiment.setStatus(ExperimentStatus.CREATED);
 
         experimentRepository.save(experiment);
     }
@@ -134,9 +128,7 @@ public class ExperimentServiceImpl implements ExperimentService {
         Experiment experiment = experimentRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Эксперимент #"+id+" не найден"));
 
-        if (experiment.getStatus() != ExperimentStatus.FILLED_IN
-                && experiment.getStatus() != ExperimentStatus.CREATED)
-            return;
+        throwIfNotEditable(experiment);
 
         Action action = actionRepository.findById(actionId)
                 .orElseThrow(() -> new EntityNotFoundException("Действие #"+actionId+" не найдено"));
@@ -150,25 +142,22 @@ public class ExperimentServiceImpl implements ExperimentService {
 
     @Override
     @Transactional
-    public void approve(long id) {
-        Experiment experiment = experimentRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Эксперимент #"+id+" не найден"));
-
-        if (experiment.getStatus() != ExperimentStatus.FILLED_IN)
-            return;
+    public void approve(long id, String approvedBy) {
+        Experiment experiment = experimentRepository.findByIdAndStatus(id, ExperimentStatus.FILLED_IN)
+                .orElseThrow(() -> new EntityNotFoundException("Эксперимент #"+id+" не найден " +
+                        "или не в статусе " + ExperimentStatus.FILLED_IN.getDescription()));
 
         experiment.setStatus(ExperimentStatus.APPROVED);
+        experiment.setApprovedBy(approvedBy);
         experimentRepository.save(experiment);
     }
 
     @Override
     @Transactional
     public void start(long id) {
-        Experiment experiment = experimentRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Эксперимент #"+id+" не найден"));
-
-        if (experiment.getStatus() != ExperimentStatus.APPROVED)
-            return;
+        Experiment experiment = experimentRepository.findByIdAndStatus(id, ExperimentStatus.APPROVED)
+                .orElseThrow(() -> new EntityNotFoundException("Эксперимент #"+id+" не найден " +
+                        "или не в статусе " + ExperimentStatus.APPROVED.getDescription()));
 
         experiment.setStatus(ExperimentStatus.RUNNING);
         experimentRepository.save(experiment);
@@ -177,33 +166,11 @@ public class ExperimentServiceImpl implements ExperimentService {
     @Override
     @Transactional
     public void finish(long id) {
-        Experiment experiment = experimentRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Эксперимент #"+id+" не найден"));
-
-        if (experiment.getStatus() != ExperimentStatus.RUNNING)
-            return;
+        Experiment experiment = experimentRepository.findByIdAndStatus(id, ExperimentStatus.RUNNING)
+                .orElseThrow(() -> new EntityNotFoundException("Эксперимент #"+id+" не найден " +
+                        "или не в статусе " + ExperimentStatus.RUNNING.getDescription()));
 
         experiment.setStatus(ExperimentStatus.FINISHED);
-        experimentRepository.save(experiment);
-    }
-
-    @Override
-    @Transactional
-    public void createReport(long id, String reportText, String reportResult) {
-        Experiment experiment = experimentRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Эксперимент #"+id+" не найден"));
-
-        if (experiment.getStatus() != ExperimentStatus.FINISHED)
-            return;
-
-        experiment.setReport(
-                Report.builder()
-                        .text(reportText)
-                        .result(reportResult)
-                        .build()
-        );
-
-        experiment.setStatus(ExperimentStatus.REPORTED);
         experimentRepository.save(experiment);
     }
 
@@ -231,5 +198,32 @@ public class ExperimentServiceImpl implements ExperimentService {
             experiment.setStatus(ExperimentStatus.FINISHED);
 
         experimentRepository.save(experiment);
+    }
+
+    @Override
+    @Transactional
+    public void createReport(long id, ReportDTO reportDTO) {
+        Experiment experiment = experimentRepository.findByIdAndStatus(id, ExperimentStatus.FINISHED)
+                .orElseThrow(() -> new EntityNotFoundException(
+                        "Эксперимент #"+id+" не найден " +
+                                "или не в статусе " + ExperimentStatus.FINISHED.getDescription()));
+
+        Report report = reportRepository.save(Report.builder()
+                .experiment(experiment)
+                .text(reportDTO.getText())
+                .result(reportDTO.getResult())
+                .build());
+
+        experiment.setStatus(ExperimentStatus.REPORTED);
+        experimentRepository.save(experiment);
+    }
+
+
+    private void throwIfNotEditable(Experiment experiment) throws EntityNotFoundException {
+        if (experiment.getStatus() != ExperimentStatus.FILLED_IN
+                && experiment.getStatus() != ExperimentStatus.CREATED)
+            throw new EntityNotFoundException("Эксперимент #"+experiment.getId()+" не в статусе "
+                    +ExperimentStatus.FILLED_IN.getDescription()
+                    + " или " + ExperimentStatus.CREATED.getDescription());
     }
 }

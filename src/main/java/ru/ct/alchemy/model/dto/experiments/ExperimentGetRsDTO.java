@@ -1,8 +1,9 @@
-package ru.ct.alchemy.model.dto;
+package ru.ct.alchemy.model.dto.experiments;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import ru.ct.alchemy.model.dto.MaterialDTO;
 
 import java.util.Date;
 import java.util.List;
@@ -23,7 +24,6 @@ public class ExperimentGetRsDTO {
     private String equipmentTypePrettyName;
     private List<MaterialDTO> materials;
     private String actionName;
-    private String reportText;
-    private String reportResult;
     private Integer progress;
+    private Long reportId;
 }

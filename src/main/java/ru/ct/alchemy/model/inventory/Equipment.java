@@ -2,9 +2,6 @@ package ru.ct.alchemy.model.inventory;
 
 import jakarta.persistence.*;
 import lombok.*;
-import ru.ct.alchemy.model.experiment.Experiment;
-
-import java.util.List;
 
 @Entity
 @Table(name = "equipment", schema = "research")
@@ -13,7 +10,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Equipment{
+public class Equipment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,8 +26,5 @@ public class Equipment{
 
     @Column(name = "amount")
     private Integer amount;
-
-    @OneToMany(mappedBy = "equipment")
-    private List<Experiment> experiments;
 
 }

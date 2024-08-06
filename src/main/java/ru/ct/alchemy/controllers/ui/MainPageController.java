@@ -27,7 +27,7 @@ public class MainPageController {
 
     @GetMapping("/logout")
     private String logout(Model model, String error, String logout) {
-        return "logout";
+        return "security/logout";
     }
 
     @GetMapping("/login")
@@ -35,7 +35,7 @@ public class MainPageController {
         if (error != null) model.addAttribute("error", "Your username and password is invalid.");
         if (logout != null) model.addAttribute("message", "You have been logged out successfully.");
 
-        return "login";
+        return "security/login";
     }
 
     @ModelAttribute("currentUser")

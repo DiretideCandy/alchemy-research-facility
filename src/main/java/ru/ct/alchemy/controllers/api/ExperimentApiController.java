@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.ct.alchemy.model.dto.ExperimentGetAllRsDTO;
-import ru.ct.alchemy.model.dto.ExperimentGetRsDTO;
+import ru.ct.alchemy.model.dto.experiments.ExperimentGetAllRsDTO;
+import ru.ct.alchemy.model.dto.experiments.ExperimentGetRsDTO;
 import ru.ct.alchemy.services.interfaces.ExperimentService;
 
 import java.util.List;

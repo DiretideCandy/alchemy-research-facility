@@ -7,7 +7,7 @@
 <body>
 <#include "parts/header.ftl">
 <main>
-    <h1>[Welcome to the Main Page]</h1>
+    <h2>[Welcome to the Main Page]</h2>
 </main>
 </body>
 </html>

@@ -25,4 +25,12 @@ public class ActionServiceImpl implements ActionService {
                 .map(actionMapper.INSTANCE::toDTO)
                 .toList();
     }
+
+    @Override
+    public List<ActionDTO> findAll() {
+        return actionRepository.findAll()
+                .stream()
+                .map(actionMapper.INSTANCE::toDTO)
+                .toList();
+    }
 }

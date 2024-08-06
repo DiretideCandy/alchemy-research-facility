@@ -82,20 +82,4 @@
             </#if>
         </td>
     </tr>
-    <tr>
-        <td>Отчёт</td>
-        <td>
-            <#if repText != unknownString>
-                ${repText}
-            <#else>
-                Отчёт не сформирован
-            </#if>
-        </td>
-    </tr>
-    <#if repText != unknownString>
-        <tr>
-            <td>Выявленный результат</td>
-            <td>${experiment.reportResult}</td>
-        </tr>
-    </#if>
 </table>

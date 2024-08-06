@@ -6,8 +6,8 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum ExperimentStatus {
-    CREATED("Создан"),
-    FILLED_IN("Данные заполнены"),
+    CREATED("Заполнение параметров"),
+    FILLED_IN("Параметры заполнены"),
     APPROVED("Согласован"),
     RUNNING("Выполняется"),
     CANCELLED("Отменён"),

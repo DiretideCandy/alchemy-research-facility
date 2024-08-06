@@ -36,7 +36,7 @@ public class EquipmentApiController {
     @Operation(summary = "Создать оборудование", description = "Добавляет указанное оборудование на склад")
     @PostMapping("/create")
     public ResponseEntity<EquipmentDTO> create(@RequestBody @Valid EquipmentDTO equipment,
-                                            BindingResult bindingResult){
+                                               BindingResult bindingResult){
         if (bindingResult.hasErrors())
             return ResponseEntity.badRequest().body(equipment);
 
@@ -46,7 +46,7 @@ public class EquipmentApiController {
     @Operation(summary = "Изменить оборудование", description = "Отредактировать информацию об оборудовании")
     @PatchMapping("/{id}")
     public ResponseEntity<EquipmentDTO> update(@ModelAttribute("person") @Valid EquipmentDTO equipment,
-                                            BindingResult bindingResult) {
+                                               BindingResult bindingResult) {
 
         if (bindingResult.hasErrors())
             return ResponseEntity.badRequest().body(equipment);

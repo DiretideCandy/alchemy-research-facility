@@ -14,7 +14,6 @@
 <#assign status = experiment.statusName>
 <#assign progress = experiment.progress>
 <#assign eqName = experiment.equipmentName>
-<#assign repText = experiment.reportText>
 <#assign approvedBy = experiment.approvedBy>
 <#assign roleMANAGER = roles?seq_contains("MANAGER")?string("yes", "no")>
 <#include "parts/header.ftl">

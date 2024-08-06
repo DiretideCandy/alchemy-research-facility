@@ -10,4 +10,5 @@ import lombok.ToString;
 public class ActionDTO {
     private Long id;
     private String name;
+    private String equipmentType;
 }

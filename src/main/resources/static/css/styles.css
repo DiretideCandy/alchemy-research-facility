@@ -24,6 +24,11 @@ th, td {
     text-align: left;
 }
 
+th {
+    font-weight: normal;
+    text-decoration: underline;
+}
+
 /* Header styles */
 header {
     background-color: #ffffff;
@@ -73,3 +78,55 @@ table table {
      text-align: right;
      background-color: #bfff00;
  }
+
+/*
+    Отчёт
+ */
+
+.a4-main {
+    background-color: white;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+.a4-page {
+    width: 210mm;
+    height: 297mm;
+    background-color: white;
+    padding: 20mm;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+    border: 1px solid #000000;
+    margin: 10px 10px 10px 10px;
+}
+.a4-header {
+    text-align: right;
+    font-size: 14px;
+}
+.a4-title {
+    text-align: center;
+    font-size: 24px;
+    margin: 20mm 0;
+}
+.a4-content {
+    text-align: justify;
+    font-size: 16px;
+    line-height: 1.5;
+}
+.a4-content p {
+    text-indent: 2em;
+}
+.a4-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20mm;
+    font-size: 14px;
+}
+.a4-footer .date {
+    flex: 1;
+}
+.a4-footer .signatures {
+    flex: 2;
+    text-align: right;
+}
