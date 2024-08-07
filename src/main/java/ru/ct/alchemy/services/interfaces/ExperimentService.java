@@ -1,5 +1,6 @@
 package ru.ct.alchemy.services.interfaces;
 
+import org.springframework.data.domain.Sort;
 import ru.ct.alchemy.model.dto.*;
 import ru.ct.alchemy.model.dto.experiments.*;
 import ru.ct.alchemy.model.experiment.ExperimentStatus;
@@ -35,4 +36,6 @@ public interface ExperimentService {
     void changeProgress(long id, int increment);
 
     void createReport(long id, ReportDTO reportDTO);
+
+    List<ExperimentGetAllRsDTO> findAllSorted(Sort sortObj);
 }

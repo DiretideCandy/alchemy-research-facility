@@ -2,6 +2,7 @@ package ru.ct.alchemy.services;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.ct.alchemy.model.Action;
@@ -39,6 +40,15 @@ public class ExperimentServiceImpl implements ExperimentService {
                 .map(experimentMapper::toGetAllRsDTO)
                 .toList();
     }
+    @Override
+    public List<ExperimentGetAllRsDTO> findAllSorted(Sort sort) {
+        return experimentRepository.findAll(sort)
+                .stream()
+                .map(experimentMapper::toGetAllRsDTO)
+                .toList();
+    }
+
+
     @Override
     @Transactional
     public ExperimentCreateRsDTO create(ExperimentCreateRqDTO experimentCreateRqDTO) {
@@ -217,7 +227,6 @@ public class ExperimentServiceImpl implements ExperimentService {
         experiment.setStatus(ExperimentStatus.REPORTED);
         experimentRepository.save(experiment);
     }
-
 
     private void throwIfNotEditable(Experiment experiment) throws EntityNotFoundException {
         if (experiment.getStatus() != ExperimentStatus.FILLED_IN

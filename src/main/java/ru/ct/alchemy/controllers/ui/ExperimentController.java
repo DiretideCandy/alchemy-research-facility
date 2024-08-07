@@ -2,6 +2,7 @@ package ru.ct.alchemy.controllers.ui;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -38,9 +39,17 @@ public class ExperimentController {
     private final ExtraPropertiesHolder extraPropertiesHolder;
 
     @GetMapping
-    private String showAll(Model model) {
-        List<ExperimentGetAllRsDTO> experiments = experimentService.findAll();
+    private String showAll(Model model, @RequestParam(defaultValue = "createdAt,desc") String sort) {
+
+        String[] sortParams = sort.split(",");
+        Sort sortObj = Sort.by(Sort.Direction.fromString(sortParams[1]),
+                sortParams[0].replace("status", "status.description")
+        );
+
+        List<ExperimentGetAllRsDTO> experiments = experimentService.findAllSorted(sortObj);
         model.addAttribute("experiments", experiments);
+        model.addAttribute("sortBy", sortParams[0]);
+        model.addAttribute("sortDir", sortParams[1]);
         return "experiments";
     }
 

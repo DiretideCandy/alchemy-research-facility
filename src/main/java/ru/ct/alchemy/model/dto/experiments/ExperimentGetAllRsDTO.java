@@ -12,6 +12,7 @@ import java.util.Date;
 public class ExperimentGetAllRsDTO {
     private Long id;
     private Date createdAt;
+    private Date lastUpdatedAt;
     private String createdBy;
     private String statusName;
     private String statusDescription;
