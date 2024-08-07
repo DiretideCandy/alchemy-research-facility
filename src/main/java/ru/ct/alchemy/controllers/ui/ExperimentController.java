@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.ct.alchemy.configuration.ExtraPropertiesHolder;
+import ru.ct.alchemy.model.dto.DateFilterStringDTO;
 import ru.ct.alchemy.model.dto.experiments.ExperimentCreateRqDTO;
 import ru.ct.alchemy.model.dto.experiments.ExperimentCreateRsDTO;
 import ru.ct.alchemy.model.dto.experiments.ExperimentGetAllRsDTO;
@@ -39,18 +40,35 @@ public class ExperimentController {
     private final ExtraPropertiesHolder extraPropertiesHolder;
 
     @GetMapping
-    private String showAll(Model model, @RequestParam(defaultValue = "createdAt,desc") String sort) {
+    private String showAllNoFilter(Model model,
+                           @RequestParam(defaultValue = "createdAt,desc") String sort){
 
+        showAll(model, sort, DateFilterStringDTO.createEmpty());
+        return "experiments";
+    }
+
+    @PostMapping
+    private String showAllFiltered(Model model,
+                           @RequestParam(defaultValue = "createdAt,desc") String sort,
+                           @ModelAttribute("dateFilterDTO") DateFilterStringDTO dateFilterDTO) {
+
+        showAll(model, sort, dateFilterDTO);
+        return "experiments";
+    }
+
+    private void showAll(Model model, String sort, DateFilterStringDTO dateFilterDTO) {
         String[] sortParams = sort.split(",");
         Sort sortObj = Sort.by(Sort.Direction.fromString(sortParams[1]),
                 sortParams[0].replace("status", "status.description")
         );
 
-        List<ExperimentGetAllRsDTO> experiments = experimentService.findAllSorted(sortObj);
+        List<ExperimentGetAllRsDTO> experiments = experimentService.findAllSortedAndFiltered(sortObj, dateFilterDTO);
+
+
         model.addAttribute("experiments", experiments);
         model.addAttribute("sortBy", sortParams[0]);
         model.addAttribute("sortDir", sortParams[1]);
-        return "experiments";
+        model.addAttribute("dateFilterDTO", dateFilterDTO);
     }
 
     @GetMapping("/create")

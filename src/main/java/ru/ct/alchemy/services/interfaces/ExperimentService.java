@@ -37,5 +37,5 @@ public interface ExperimentService {
 
     void createReport(long id, ReportDTO reportDTO);
 
-    List<ExperimentGetAllRsDTO> findAllSorted(Sort sortObj);
+    List<ExperimentGetAllRsDTO> findAllSortedAndFiltered(Sort sortObj, DateFilterStringDTO dateFilterDTO);
 }
