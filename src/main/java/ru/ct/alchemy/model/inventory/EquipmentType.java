@@ -10,6 +10,7 @@ public enum EquipmentType {
     WAND("Волшебная палочка"),
     CAULDRON("Котёл"),
     HAMMER("Молот"),
+    ELECTRICAL("Электрический прибор"),
     ;
 
     private final String prettyName;

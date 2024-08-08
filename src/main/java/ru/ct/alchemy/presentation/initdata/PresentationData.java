@@ -49,17 +49,22 @@ public class PresentationData {
     private final List<Equipment> equipment = List.of(
             Equipment.builder().type(EquipmentType.HAMMER).name("Кузнечный молот, +5 к кузнечному делу").amount(8).build(),
             Equipment.builder().type(EquipmentType.CAULDRON).name("Котёл чугунный, крупный").amount(9).build(),
-            Equipment.builder().type(EquipmentType.WAND).name("Волшебная палочка, волос единорога, бук").amount(10).build()
+            Equipment.builder().type(EquipmentType.WAND).name("Волшебная палочка, волос единорога, бук").amount(10).build(),
+            Equipment.builder().type(EquipmentType.ELECTRICAL).name("Электростатический генератор, ").amount(2).build(),
+            Equipment.builder().type(EquipmentType.ELECTRICAL).name("Волшебная палочка, волос единорога, бук").amount(10).build()
     );
 
     private final List<Action> actions = List.of(
             Action.builder().equipmentType(EquipmentType.HAMMER).name("Разбить").build(),
             Action.builder().equipmentType(EquipmentType.HAMMER).name("Ковать").build(),
+            Action.builder().equipmentType(EquipmentType.HAMMER).name("Ударить").build(),
             Action.builder().equipmentType(EquipmentType.WAND).name("Ткнуть").build(),
             Action.builder().equipmentType(EquipmentType.WAND).name("Зачарование").build(),
             Action.builder().equipmentType(EquipmentType.WAND).name("Заклинание \"Трансформация\"").build(),
             Action.builder().equipmentType(EquipmentType.CAULDRON).name("Варка").build(),
-            Action.builder().equipmentType(EquipmentType.CAULDRON).name("Смешивание").build()
+            Action.builder().equipmentType(EquipmentType.CAULDRON).name("Смешивание").build(),
+            Action.builder().equipmentType(EquipmentType.ELECTRICAL).name("Расположить рядом с работающим прибором").build(),
+            Action.builder().equipmentType(EquipmentType.ELECTRICAL).name("Воздействовать напрямую").build()
     );
 
     private final List<Role> roles = List.of(

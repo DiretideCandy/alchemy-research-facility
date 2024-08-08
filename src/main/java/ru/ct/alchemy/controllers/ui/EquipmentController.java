@@ -25,6 +25,8 @@ public class EquipmentController {
 
     @GetMapping
     private String equipment(Model model) {
+
+        // TODO: вместо еретичных вложенных циклов во FreeMarker'е собирать уже готовую информацию на уровне репозитория или сервиса
         List<EquipmentDTO> equipment = equipmentService.findAll();
         model.addAttribute("equipment", equipment);
         List<ActionDTO> actions = actionService.findAll();
