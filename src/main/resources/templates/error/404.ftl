@@ -7,8 +7,8 @@
 <body>
 <#include "../parts/header.ftl">
 <main>
-    <h1>404 - Not Found</h1>
-    <p>The requested resource could not be found.</p>
+    <h1>Ошибка 404</h1>
+    <p>Запрошенный ресурс не найден.</p>
 </main>
 </body>
 </html>

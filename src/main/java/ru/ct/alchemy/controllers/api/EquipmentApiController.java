@@ -32,31 +32,4 @@ public class EquipmentApiController {
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
-
-    @Operation(summary = "Создать оборудование", description = "Добавляет указанное оборудование на склад")
-    @PostMapping("/create")
-    public ResponseEntity<EquipmentDTO> create(@RequestBody @Valid EquipmentDTO equipment,
-                                               BindingResult bindingResult){
-        if (bindingResult.hasErrors())
-            return ResponseEntity.badRequest().body(equipment);
-
-        return new ResponseEntity<>(equipmentService.save(equipment), HttpStatus.CREATED);
-    }
-
-    @Operation(summary = "Изменить оборудование", description = "Отредактировать информацию об оборудовании")
-    @PatchMapping("/{id}")
-    public ResponseEntity<EquipmentDTO> update(@ModelAttribute("person") @Valid EquipmentDTO equipment,
-                                               BindingResult bindingResult) {
-
-        if (bindingResult.hasErrors())
-            return ResponseEntity.badRequest().body(equipment);
-
-        return ResponseEntity.ok(equipmentService.update(equipment));
-    }
-
-    @Operation(summary = "Удалить оборудование", description = "Удалить оборудование по его id")
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable("id") long id) {
-        equipmentService.delete(id);
-    }
 }

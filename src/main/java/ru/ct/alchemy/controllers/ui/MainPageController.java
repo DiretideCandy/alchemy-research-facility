@@ -3,11 +3,14 @@ package ru.ct.alchemy.controllers.ui;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+
+import java.util.List;
 
 @Slf4j
 @Controller
@@ -38,12 +41,16 @@ public class MainPageController {
         return "security/login";
     }
 
-    @ModelAttribute("currentUser")
-    private String addUserNameToModel() {
+    @ModelAttribute
+    public void addUserNameToModel(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated()) {
-            return authentication.getName();
+            model.addAttribute("currentUser", authentication.getName());
+            List<String> roles = authentication.getAuthorities()
+                    .stream()
+                    .map(GrantedAuthority::getAuthority)
+                    .toList();
+            model.addAttribute("roles", roles);
         }
-        return "Аноним";
     }
 }

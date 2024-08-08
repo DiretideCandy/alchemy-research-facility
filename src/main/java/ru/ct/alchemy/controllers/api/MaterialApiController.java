@@ -33,30 +33,4 @@ public class MaterialApiController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @Operation(summary = "Создать материал", description = "Добавляет указанный материал на склад")
-    @PostMapping("/create")
-    public ResponseEntity<MaterialDTO> create(@RequestBody @Valid MaterialDTO material,
-                                            BindingResult bindingResult){
-        if (bindingResult.hasErrors())
-            return ResponseEntity.badRequest().body(material);
-
-        return new ResponseEntity<>(materialService.save(material), HttpStatus.CREATED);
-    }
-
-    @Operation(summary = "Изменить материал", description = "Отредактировать информацию о материале")
-    @PatchMapping("/{id}")
-    public ResponseEntity<MaterialDTO> update(@ModelAttribute("person") @Valid MaterialDTO material,
-                                            BindingResult bindingResult) {
-
-        if (bindingResult.hasErrors())
-            return ResponseEntity.badRequest().body(material);
-
-        return ResponseEntity.ok(materialService.update(material));
-    }
-
-    @Operation(summary = "Удалить материал", description = "Удалить материал по его id")
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable("id") long id) {
-        materialService.delete(id);
-    }
 }
