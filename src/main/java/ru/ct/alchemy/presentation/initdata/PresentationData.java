@@ -50,8 +50,8 @@ public class PresentationData {
             Equipment.builder().type(EquipmentType.HAMMER).name("Кузнечный молот, +5 к кузнечному делу").amount(8).build(),
             Equipment.builder().type(EquipmentType.CAULDRON).name("Котёл чугунный, крупный").amount(9).build(),
             Equipment.builder().type(EquipmentType.WAND).name("Волшебная палочка, волос единорога, бук").amount(10).build(),
-            Equipment.builder().type(EquipmentType.ELECTRICAL).name("Электростатический генератор, ").amount(2).build(),
-            Equipment.builder().type(EquipmentType.ELECTRICAL).name("Волшебная палочка, волос единорога, бук").amount(10).build()
+            Equipment.builder().type(EquipmentType.ELECTRICAL).name("Электростатический генератор").amount(2).build(),
+            Equipment.builder().type(EquipmentType.ELECTRICAL).name("Аккумулятор").amount(10).build()
     );
 
     private final List<Action> actions = List.of(
