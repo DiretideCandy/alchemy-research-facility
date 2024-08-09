@@ -11,9 +11,9 @@
 
     <div class="form-group <#if error??> 'has-error' <#else> ''</#if>">
         <#if message??><span>${message}</span></#if>
-        <input name="username" type="text" class="form-control" placeholder="Username"
+        <input name="username" type="text" class="form-control" placeholder="Имя пользователя"
                autofocus="true"/>
-        <input name="password" type="password" class="form-control" placeholder="Password" prefix="{noop}"/>
+        <input name="password" type="password" class="form-control" placeholder="Пароль" prefix="{noop}"/>
         <#if error??><span>${error}</span></#if>
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
